@@ -12,6 +12,7 @@
 		1845ECD82B835ECE00E64A00 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1845ECD72B835ECE00E64A00 /* ViewController.swift */; };
 		1845ECDD2B835ECF00E64A00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1845ECDC2B835ECF00E64A00 /* Assets.xcassets */; };
 		1845ECE02B835ECF00E64A00 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1845ECDE2B835ECF00E64A00 /* LaunchScreen.storyboard */; };
+		186294992B92108700E7A3F3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186294982B92108700E7A3F3 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		1845ECDC2B835ECF00E64A00 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1845ECDF2B835ECF00E64A00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1845ECE12B835ECF00E64A00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		186294982B92108700E7A3F3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,12 +56,13 @@
 		1845ECD22B835ECE00E64A00 /* Lawson-andrey */ = {
 			isa = PBXGroup;
 			children = (
+				1845ECE12B835ECF00E64A00 /* Info.plist */,
 				1845ECD32B835ECE00E64A00 /* AppDelegate.swift */,
 				1845ECD52B835ECE00E64A00 /* SceneDelegate.swift */,
 				1845ECD72B835ECE00E64A00 /* ViewController.swift */,
 				1845ECDC2B835ECF00E64A00 /* Assets.xcassets */,
 				1845ECDE2B835ECF00E64A00 /* LaunchScreen.storyboard */,
-				1845ECE12B835ECF00E64A00 /* Info.plist */,
+				186294982B92108700E7A3F3 /* MainViewController.swift */,
 			);
 			path = "Lawson-andrey";
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 				1845ECD82B835ECE00E64A00 /* ViewController.swift in Sources */,
 				1845ECD42B835ECE00E64A00 /* AppDelegate.swift in Sources */,
 				1845ECD62B835ECE00E64A00 /* SceneDelegate.swift in Sources */,
+				186294992B92108700E7A3F3 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
