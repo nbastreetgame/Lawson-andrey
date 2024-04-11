@@ -1,14 +1,12 @@
 //
-//  ViewController.swift
+//  StartViewControllers.swift
 //  Lawson-andrey
 //
-//  Created by Apple on 19.02.2024.
+//  Created by Apple on 02.04.2024.
 //
 
-import UIKit
-
-
-class ViewController: UIViewController {
+import Foundation
+class StartViewController: UIViewController {
     private let label = UILabel()
     
     let button = UIButton()
@@ -70,7 +68,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //Loading ...
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             let vc = MainViewController.init()
             let navigation = UINavigationController(rootViewController: vc)
 //            navigation.modalPresentationStyle = .fullScreen
@@ -93,8 +91,8 @@ struct Provider_ViewController : PreviewProvider {
         typealias UIViewControllerType = UIViewController
         
         
-        let viewController = ViewController()
-        func makeUIViewController(context: UIViewControllerRepresentableContext<Provider_ViewController.ContainterView>) -> ViewController {
+        let viewController = StartViewController()
+        func makeUIViewController(context: UIViewControllerRepresentableContext<Provider_ViewController.ContainterView>) -> StartViewController {
             return viewController
         }
         

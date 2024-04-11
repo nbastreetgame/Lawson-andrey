@@ -1,0 +1,144 @@
+//
+//  MainViewController.swift
+//  Lawson-andrey
+//
+//  Created by Apple on 01.03.2024.
+//
+
+import UIKit
+
+struct WordModel {
+    let word:String
+    let translate:String
+}
+
+
+class MainViewController: BaseViewController {
+  
+    private let tableView = UITableView(frame:.zero, style: .plain)
+    private var array: [String] = ["Hello","House","Winter","Book","Island","Car"]
+    private var array2:[String] = ["Привет","Дом","Зима","Книга","Остров","Машина"]
+    
+    override func loadView() {
+        super.loadView()
+        setupConstraint()
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupNavigationView()
+        setupTableView()
+    }
+}
+
+private extension MainViewController{
+    
+    func setupTableView(){
+        tableView.backgroundColor = .systemOrange
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+    
+    func setupNavigationView(){
+        navigationItem.title = "Все слова"
+        navigationController?.navigationBar.largeContentTitle = "Все слова"
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
+       
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonAction))
+        navigationController?.navigationBar.tintColor = .systemOrange
+        
+    }
+    func setupConstraint() {
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+                
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor), //TODO ????
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+    
+    
+    @objc private func addButtonAction(_sender:UIBarButtonItem){
+        
+    }
+    
+    
+}
+
+extension MainViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return array.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let string = array[indexPath.row]
+        cell.textLabel?.text = string
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.backgroundColor = .systemYellow
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//MARK: - SwiftUI
+import SwiftUI
+struct Provider_MainViewController : PreviewProvider {
+    static var previews: some View {
+        ContainterView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainterView: UIViewControllerRepresentable {
+        func makeUIViewController(context: Context) -> UIViewController {
+            return UINavigationController(rootViewController: viewController)
+        }
+        
+        typealias UIViewControllerType = UIViewController
+        
+        
+        let viewController = MainViewController()
+        func makeUIViewController(context: UIViewControllerRepresentableContext<Provider_ViewController.ContainterView>) -> UINavigationController {
+            return UINavigationController(rootViewController: viewController)
+        }
+        
+        func updateUIViewController(_ uiViewController: Provider_MainViewController.ContainterView.UIViewControllerType, context: UIViewControllerRepresentableContext<Provider_MainViewController.ContainterView>) {
+            
+        }
+    }
+    
+}
+
+
+
+
+
+
+
+
+    
+
