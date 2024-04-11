@@ -16,8 +16,14 @@ struct WordModel {
 class MainViewController: BaseViewController {
   
     private let tableView = UITableView(frame:.zero, style: .plain)
-    private var array: [String] = ["Hello","House","Winter","Book","Island","Car"]
-    private var array2:[String] = ["Привет","Дом","Зима","Книга","Остров","Машина"]
+    
+    private var arrayWords: [WordModel] = [WordModel(word: "Hello", translate: "Привет"),
+                                           WordModel(word: "House", translate: "Дом"),
+                                           WordModel(word: "Winter", translate: "Зима"),
+                                           WordModel(word: "Book", translate: "Книга"),
+                                           WordModel(word: "Island", translate: "Остров"),
+                                           WordModel(word: "Car", translate: "Машина"),
+    ]
     
     override func loadView() {
         super.loadView()
@@ -30,6 +36,57 @@ class MainViewController: BaseViewController {
         setupNavigationView()
         setupTableView()
     }
+    
+    
+    func addNewWord() {
+        let alert = UIAlertController(title: "Новое слово", message: nil, preferredStyle: .alert)
+        
+        let add = UIAlertAction(title: "add", style: .default) { _ in
+            print("нажали add")
+            
+            guard let textfields = alert.textFields else { return }
+            
+            var main: String = ""
+            var translate: String = ""
+            
+            for textfield in textfields {
+                if textfield.tag == 1 {
+                    main = textfield.text ?? ""
+                }
+                
+                if textfield.tag == 2 {
+                    translate = textfield.text ?? ""
+                }
+            }
+            
+            let model = WordModel(word: main, translate: translate)
+            
+            self.arrayWords.append(model)
+            
+            self.tableView.reloadData()
+        }
+        
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            print("нажали cancel")
+        }
+        
+        alert.addAction(add)
+        alert.addAction(cancel)
+        
+        alert.addTextField { textField in
+            textField.placeholder = "Main слово"
+            textField.tag = 1
+        }
+        
+        alert.addTextField { textField in
+            textField.placeholder = "Translate слово"
+            textField.tag = 2
+        }
+        
+        present(alert, animated: true)
+    }
+    
 }
 
 private extension MainViewController{
@@ -38,7 +95,7 @@ private extension MainViewController{
         tableView.backgroundColor = .systemOrange
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(MainTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     func setupNavigationView(){
@@ -67,7 +124,15 @@ private extension MainViewController{
     
     
     @objc private func addButtonAction(_sender:UIBarButtonItem){
+        //present (модельное окно)
+//        let vc = AddWordViewController()
+//        present(vc, animated: true)
         
+        //push (переход)
+//        let vc = AddWordViewController()
+//        navigationController?.pushViewController(vc, animated: true)
+        
+        addNewWord()
     }
     
     
@@ -75,19 +140,31 @@ private extension MainViewController{
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return array.count
+        return arrayWords.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let string = array[indexPath.row]
+        
+        //word
+        let string = arrayWords[indexPath.row].word
         cell.textLabel?.text = string
+        
+        //translate
+        let translate = arrayWords[indexPath.row].translate
+        cell.detailTextLabel?.text = translate
+        
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        cell?.backgroundColor = .systemYellow
+//        let cell = tableView.cellForRow(at: indexPath)
+//        cell?.backgroundColor = .systemYellow
+        
+//        let vc = AddWordViewController()
+//        navigationController?.pushViewController(vc, animated: true)
+        addNewWord()
     }
     
 }
@@ -96,7 +173,18 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
 
 
-
+class MainTableViewCell: UITableViewCell {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+        
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
 
 
 
