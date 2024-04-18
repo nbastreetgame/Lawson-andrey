@@ -28,21 +28,25 @@ class MainViewController: BaseViewController {
         setupConstraint()
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationView()
         setupTableView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
 }
 
 private extension MainViewController{
     
     func setupTableView(){
-        tableView.backgroundColor = .systemOrange
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(MainTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     func setupNavigationView(){
@@ -56,6 +60,7 @@ private extension MainViewController{
         navigationController?.navigationBar.tintColor = .systemOrange
         
     }
+    
     func setupConstraint() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -87,8 +92,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        
-        
         //word
         let string = arrayWords[indexPath.row].word
         cell.textLabel?.text = string
@@ -104,10 +107,18 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.backgroundColor = .systemYellow
     }
-    
 }
 
-
+class MainTableViewCell: UITableViewCell {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
 
 
 
