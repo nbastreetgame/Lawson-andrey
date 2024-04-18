@@ -16,9 +16,13 @@ struct WordModel {
 class MainViewController: BaseViewController {
   
     private let tableView = UITableView(frame:.zero, style: .plain)
-    private var array: [String] = ["Hello","House","Winter","Book","Island","Car"]
-    private var array2:[String] = ["Привет","Дом","Зима","Книга","Остров","Машина"]
-    
+    private var arrayWords: [WordModel] = [WordModel(word: "Hello", translate: "Привет"),
+                                              WordModel(word: "House", translate: "Дом"),
+                                              WordModel(word: "Winter", translate: "Зима"),
+                                              WordModel(word: "Book", translate: "Книга"),
+                                              WordModel(word: "Island", translate: "Остров"),
+                                              WordModel(word: "Car", translate: "Машина"),
+       ]
     override func loadView() {
         super.loadView()
         setupConstraint()
@@ -67,21 +71,32 @@ private extension MainViewController{
     
     
     @objc private func addButtonAction(_sender:UIBarButtonItem){
-        
+        let vc = AddWordViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     
 }
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return array.count
+        return arrayWords.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let string = array[indexPath.row]
+        
+        
+        
+        //word
+        let string = arrayWords[indexPath.row].word
         cell.textLabel?.text = string
+        
+        //translate
+        let translate = arrayWords[indexPath.row].translate
+        cell.detailTextLabel?.text = translate
+        
         return cell
     }
     
@@ -132,6 +147,7 @@ struct Provider_MainViewController : PreviewProvider {
     }
     
 }
+
 
 
 
