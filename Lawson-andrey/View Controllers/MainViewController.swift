@@ -34,6 +34,11 @@ class MainViewController: BaseViewController {
         setupNavigationView()
         setupTableView()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
 }
 
 private extension MainViewController{
@@ -42,7 +47,7 @@ private extension MainViewController{
         tableView.backgroundColor = .systemOrange
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(MainTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     func setupNavigationView(){
@@ -56,6 +61,10 @@ private extension MainViewController{
         navigationController?.navigationBar.tintColor = .systemOrange
         
     }
+    
+   
+    
+    
     func setupConstraint() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -107,7 +116,16 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-
+class MainTableViewCell:UITableViewCell {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
 
 
 
