@@ -13,10 +13,10 @@ struct WordModel {
 }
 
 
-class MainViewController: BaseViewController {
-  
+class MainViewController: BaseViewController, DocumentProtocol {
+   
     private let tableView = UITableView(frame:.zero, style: .plain)
-    private var arrayWords: [WordModel] = [WordModel(word: "Hello", translate: "Привет"),
+    var arrayWords: [WordModel] = [WordModel(word: "Hello", translate: "Привет"),
                                               WordModel(word: "House", translate: "Дом"),
                                               WordModel(word: "Winter", translate: "Зима"),
                                               WordModel(word: "Book", translate: "Книга"),
@@ -39,6 +39,11 @@ class MainViewController: BaseViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
+    
+    func saveText(model: WordModel) {
+        arrayWords.append(model)
+        tableView.reloadData()
+    }
 }
 
 private extension MainViewController{
@@ -80,10 +85,10 @@ private extension MainViewController{
     
     
     @objc private func addButtonAction(_sender:UIBarButtonItem){
-        let vc = AddWordViewController()
+        let vc = AddWordViewController.init()
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     
 }
 
@@ -113,7 +118,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.backgroundColor = .systemYellow
     }
-    
 }
 
 class MainTableViewCell:UITableViewCell {

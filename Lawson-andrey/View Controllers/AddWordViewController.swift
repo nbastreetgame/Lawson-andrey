@@ -7,16 +7,19 @@
 
 import UIKit
 
+protocol DocumentProtocol: AnyObject {
+    func saveText(model: WordModel)
+}
+
 class AddWordViewController:BaseViewController {
+    weak var delegate: DocumentProtocol?
+    
+    private let wordTextField = UITextField()
+    private let translateTextField = UITextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-       
         navigationItem.title = "Новое слово"
-     
-        
         
         let whiteView = UIView()
         whiteView.backgroundColor = .white
@@ -37,7 +40,6 @@ class AddWordViewController:BaseViewController {
         detailWordLabel.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         detailWordLabel.textColor = .systemGray2
         
-        let wordTextField = UITextField()
         wordTextField.placeholder = "Текст"
         wordTextField.contentVerticalAlignment = .bottom
         
@@ -45,16 +47,15 @@ class AddWordViewController:BaseViewController {
         
         //translate
         let translateLabel = UILabel()
-        wordLabel.text = "Перевод"
+        translateLabel.text = "Перевод"
         translateLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         
         let detailTranslateLabel = UILabel()
-        wordLabel.text = "На языке звучания"
+        detailTranslateLabel.text = "На языке звучания"
         detailTranslateLabel.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         detailTranslateLabel.textColor = .systemGray2
         
         
-        let translateTextField = UITextField()
         translateTextField.placeholder = "Текст"
         translateTextField.contentVerticalAlignment = .bottom
         
@@ -114,6 +115,10 @@ class AddWordViewController:BaseViewController {
         ])
         
         wordLine.backgroundColor = .systemGray4
+        translateLine.backgroundColor = .systemGray4
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(saveAction(_:)))
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,5 +127,38 @@ class AddWordViewController:BaseViewController {
         
     }
     
+    
+    @objc private func saveAction(_ sender: UIButton) {
+        // 1 - перекинуть на первый экран
+        // 2 - проверить на наличие букв
+        
+        // guard if
+//        if let word = wordTextField.text, word != "" {
+//            word
+//            // good
+//        }
+        
+        guard let word = wordTextField.text, word != "", let translate = translateTextField.text, translate != "" else {
+            let alert = UIAlertController(title: "Error", message: "Введите текст", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "cancel", style: .cancel)
+            alert.addAction(ok)
+            present(alert, animated: true)
+            return
+        }
+        
+        
+        let model = WordModel(word: word, translate: translate)
+        
+        delegate?.saveText(model: model)
+        navigationController?.popViewController(animated: true)
+        
+        //апперсант ->
+        // = - присвоение
+        // == - сравнение
+        // === - абсалютное сравнеие обектов классового типа
+        // || - или
+        // && - и
+        
+    }
 }
 
