@@ -13,10 +13,11 @@ struct WordModel {
 }
 
 
-class MainViewController: BaseViewController {
+class MainViewController: BaseViewController,DocumetProtocol {
+    
   
     private let tableView = UITableView(frame:.zero, style: .plain)
-    private var arrayWords: [WordModel] = [WordModel(word: "Hello", translate: "Привет"),
+    var arrayWords: [WordModel] = [WordModel(word: "Hello", translate: "Привет"),
                                               WordModel(word: "House", translate: "Дом"),
                                               WordModel(word: "Winter", translate: "Зима"),
                                               WordModel(word: "Book", translate: "Книга"),
@@ -81,6 +82,7 @@ private extension MainViewController{
     
     @objc private func addButtonAction(_sender:UIBarButtonItem){
         let vc = AddWordViewController()
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -114,6 +116,12 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         cell?.backgroundColor = .systemYellow
     }
     
+    func saveText(model: WordModel) {
+        arrayWords.append(model)
+        tableView.reloadData()
+    }
+
+    
 }
 
 class MainTableViewCell:UITableViewCell {
@@ -126,17 +134,6 @@ class MainTableViewCell:UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 //MARK: - SwiftUI
