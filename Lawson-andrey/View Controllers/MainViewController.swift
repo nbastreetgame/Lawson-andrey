@@ -10,14 +10,17 @@ import UIKit
 struct WordModel {
     let word:String
     let translate:String
+    
+    init(word: String, translate: String) {
+        self.word = word
+        self.translate = translate
+    }
 }
 
 
-class MainViewController: BaseViewController,DocumetProtocol {
-    
-  
-    private let tableView = UITableView(frame:.zero, style: .plain)
-    var arrayWords: [WordModel] = [WordModel(word: "Hello", translate: "Привет"),
+class MainViewController: BaseViewController {
+    private let tableView = UITableView.init(frame:.zero, style: .plain)
+    var arrayWords: [WordModel] = [ .init(word: "Hello", translate: "Привет"),
                                               WordModel(word: "House", translate: "Дом"),
                                               WordModel(word: "Winter", translate: "Зима"),
                                               WordModel(word: "Book", translate: "Книга"),
@@ -35,6 +38,7 @@ class MainViewController: BaseViewController,DocumetProtocol {
         setupNavigationView()
         setupTableView()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -85,8 +89,6 @@ private extension MainViewController{
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
 }
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
@@ -115,13 +117,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.backgroundColor = .systemYellow
     }
-    
-    func saveText(model: WordModel) {
-        arrayWords.append(model)
-        tableView.reloadData()
-    }
-
-    
 }
 
 class MainTableViewCell:UITableViewCell {
@@ -132,6 +127,14 @@ class MainTableViewCell:UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+extension MainViewController: DocumetProtocol {
+    func saveText(model: WordModel) {
+        arrayWords.append(model)
+        tableView.reloadData()
     }
 }
 

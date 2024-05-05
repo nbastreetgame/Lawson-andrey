@@ -8,27 +8,24 @@
 import UIKit
 
 protocol DocumetProtocol: AnyObject {
+    var arrayWords: [WordModel] { get set }
     func saveText(model:WordModel)
 }
 
 
 class AddWordViewController:BaseViewController {
-    weak var delegate:DocumetProtocol?
+    weak var delegate: DocumetProtocol! // class struct enum
     
     
-  private  let wordTextField = UITextField()
-  private  let translateTextField = UITextField()
+    private  let wordTextField = UITextField.init()
+    private  let translateTextField = UITextField.init()
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
        
         navigationItem.title = "Новое слово"
-     
-        
         
         let whiteView = UIView()
         whiteView.backgroundColor = .white
@@ -49,7 +46,6 @@ class AddWordViewController:BaseViewController {
         detailWordLabel.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         detailWordLabel.textColor = .systemGray2
         
-        let wordTextField = UITextField()
         wordTextField.placeholder = "Текст"
         wordTextField.contentVerticalAlignment = .bottom
         
@@ -66,14 +62,13 @@ class AddWordViewController:BaseViewController {
         detailTranslateLabel.textColor = .systemGray2
         
         
-        let translateTextField = UITextField()
         translateTextField.placeholder = "Текст"
         translateTextField.contentVerticalAlignment = .bottom
         
         let translateLine = UIView()
         
         
-        for element in [wordLabel,detailWordLabel,translateLabel,detailTranslateLabel,wordTextField,wordLine,translateTextField,translateLine] {
+        for element in [wordLabel, detailWordLabel, translateLabel, detailTranslateLabel, wordTextField, wordLine, translateTextField, translateLine] {
             whiteView.addSubview(element)
             element.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -146,7 +141,11 @@ class AddWordViewController:BaseViewController {
         //guard if
         
         
-        guard let word = wordTextField.text,word != "", let translate = translateTextField.text,translate != "" else {
+        guard let word = wordTextField.text, 
+                word != "",
+                let translate = translateTextField.text,
+                translate != ""
+        else {
             let alert = UIAlertController(title: "Error", message: "Введите текст", preferredStyle: .alert)
             let ok = UIAlertAction(title: "cancel", style: .cancel)
             alert.addAction(ok)
