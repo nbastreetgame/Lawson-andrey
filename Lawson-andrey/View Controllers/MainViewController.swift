@@ -7,14 +7,7 @@
 
 import UIKit
 
-struct WordModel {
-    let word:String
-    let translate:String
-}
-
-
-class MainViewController: BaseViewController,DocumetProtocol {
-    
+class MainViewController: BaseViewController {
   
     private let tableView = UITableView(frame:.zero, style: .plain)
     var arrayWords: [WordModel] = [WordModel(word: "Hello", translate: "Привет"),
@@ -24,6 +17,8 @@ class MainViewController: BaseViewController,DocumetProtocol {
                                               WordModel(word: "Island", translate: "Остров"),
                                               WordModel(word: "Car", translate: "Машина"),
        ]
+    
+    
     override func loadView() {
         super.loadView()
         setupConstraint()
@@ -35,9 +30,51 @@ class MainViewController: BaseViewController,DocumetProtocol {
         setupNavigationView()
         setupTableView()
     }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
+        //1
+//        setupNetwork(text: "bdfasjdbasjdb", completion: clousure)
+        
+        
+        setupNetwork(text: "test", completion:  { number in
+            self.view.backgroundColor = .systemPink
+        })
+        
+        
+        setupNetwork(text: "test") { number in
+            self.view.backgroundColor = .systemPink
+        }
+        
+        setupNetwork(text: "dcsadjasb") { dksadshadkh in
+            <#code#>
+        }
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            self.clousure()
+//        }
+        
+    }
+    
+    
+    
+    func setupNetwork(text: String, completion: (Int) -> Void) {
+        //2
+        completion(2)
+        //
+        //
+        //
+        //
+        //
+       
+    }
+    
+    func clousure(number: Int) -> Void  {
+        self.view.backgroundColor = .systemPink
+        
+        return ()
     }
     
 }
@@ -82,6 +119,7 @@ private extension MainViewController{
     
     @objc private func addButtonAction(_sender:UIBarButtonItem){
         let vc = AddWordViewController()
+        
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -98,8 +136,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        
-        
         //word
         let string = arrayWords[indexPath.row].word
         cell.textLabel?.text = string
@@ -115,61 +151,26 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.backgroundColor = .systemYellow
     }
+}
+
+extension MainViewController: DocumetProtocol {
+    var tie: String {
+        get {
+            ""
+        }
+        set {
+            
+        }
+    }
+    
+    func goToCycyle() {
+        
+    }
+    
     
     func saveText(model: WordModel) {
         arrayWords.append(model)
         tableView.reloadData()
     }
-
     
 }
-
-class MainTableViewCell:UITableViewCell {
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-
-//MARK: - SwiftUI
-import SwiftUI
-struct Provider_MainViewController : PreviewProvider {
-    static var previews: some View {
-        ContainterView().edgesIgnoringSafeArea(.all)
-    }
-    
-    struct ContainterView: UIViewControllerRepresentable {
-        func makeUIViewController(context: Context) -> UIViewController {
-            return UINavigationController(rootViewController: viewController)
-        }
-        
-        typealias UIViewControllerType = UIViewController
-        
-        
-        let viewController = MainViewController()
-        func makeUIViewController(context: UIViewControllerRepresentableContext<Provider_ViewController.ContainterView>) -> UINavigationController {
-            return UINavigationController(rootViewController: viewController)
-        }
-        
-        func updateUIViewController(_ uiViewController: Provider_MainViewController.ContainterView.UIViewControllerType, context: UIViewControllerRepresentableContext<Provider_MainViewController.ContainterView>) {
-            
-        }
-    }
-    
-}
-
-
-
-
-
-
-
-
-
-    
-

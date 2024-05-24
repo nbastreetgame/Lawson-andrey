@@ -8,12 +8,14 @@
 import UIKit
 
 protocol DocumetProtocol: AnyObject {
+    var tie: String { get set }
+    func goToCycyle()
     func saveText(model:WordModel)
 }
 
 
 class AddWordViewController:BaseViewController {
-    weak var delegate:DocumetProtocol?
+    weak var delegate: DocumetProtocol?
     
     
   private  let wordTextField = UITextField()
@@ -25,7 +27,10 @@ class AddWordViewController:BaseViewController {
         super.viewDidLoad()
         
         
-       
+        print(delegate) // ???????
+        
+        delegate?.tie = "red"
+        
         navigationItem.title = "Новое слово"
      
         
@@ -49,7 +54,6 @@ class AddWordViewController:BaseViewController {
         detailWordLabel.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         detailWordLabel.textColor = .systemGray2
         
-        let wordTextField = UITextField()
         wordTextField.placeholder = "Текст"
         wordTextField.contentVerticalAlignment = .bottom
         
@@ -66,7 +70,6 @@ class AddWordViewController:BaseViewController {
         detailTranslateLabel.textColor = .systemGray2
         
         
-        let translateTextField = UITextField()
         translateTextField.placeholder = "Текст"
         translateTextField.contentVerticalAlignment = .bottom
         
@@ -146,7 +149,7 @@ class AddWordViewController:BaseViewController {
         //guard if
         
         
-        guard let word = wordTextField.text,word != "", let translate = translateTextField.text,translate != "" else {
+        guard let word = wordTextField.text, word != "", let translate = translateTextField.text, translate != "" else {
             let alert = UIAlertController(title: "Error", message: "Введите текст", preferredStyle: .alert)
             let ok = UIAlertAction(title: "cancel", style: .cancel)
             alert.addAction(ok)
@@ -164,3 +167,6 @@ class AddWordViewController:BaseViewController {
     }
 }
 
+extension AddWordViewController {
+    
+}
