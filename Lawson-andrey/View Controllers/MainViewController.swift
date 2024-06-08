@@ -13,10 +13,11 @@ struct WordModel {
 }
 
 
-class MainViewController: BaseViewController,DocumetProtocol {
+class MainViewController: BaseViewController {
     
   
     private let tableView = UITableView(frame:.zero, style: .plain)
+    
     var arrayWords: [WordModel] = [WordModel(word: "Hello", translate: "Привет"),
                                               WordModel(word: "House", translate: "Дом"),
                                               WordModel(word: "Winter", translate: "Зима"),
@@ -24,6 +25,7 @@ class MainViewController: BaseViewController,DocumetProtocol {
                                               WordModel(word: "Island", translate: "Остров"),
                                               WordModel(word: "Car", translate: "Машина"),
        ]
+    
     override func loadView() {
         super.loadView()
         setupConstraint()
@@ -34,6 +36,9 @@ class MainViewController: BaseViewController,DocumetProtocol {
         super.viewDidLoad()
         setupNavigationView()
         setupTableView()
+        testClousure(text: "dsdsds") {
+            print("🌼🌼🌼🌼🌼🌼🌼")
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -87,8 +92,16 @@ private extension MainViewController{
     }
     
     
+    func testClousure(text: String, function: () -> Void) {
+        
+        print(text)
+        
+        function()
+    }
+    
 }
 
+//MARK: - UITableViewDataSource, UITableViewDelegate
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -112,26 +125,54 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        cell?.backgroundColor = .systemYellow
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let value = arrayWords[indexPath.row]
+        
+        let vc = AddWordViewController()
+        
+        vc.delegate = self
+        
+        vc.editWord = value
+        
+        vc.indexPath = indexPath
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
+    //свайп с задней стороны
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        
+        
+        let contextualAction = UIContextualAction.init(style: .destructive, title: "Удалить") { _, _, _ in
+            
+            // 1 - удалить элемент из массива
+            self.arrayWords.remove(at: indexPath.row)
+            
+            //2 - indexPath удалить
+            
+            tableView.reloadData()
+        }
+        
+        let swipeActionsConfiguration = UISwipeActionsConfiguration.init(actions: [contextualAction])
+        
+        return swipeActionsConfiguration
+    }
+}
+
+//MARK: - Documet Protocol
+extension MainViewController: DocumetProtocol {
+    func editing(model: WordModel, indexPath: IndexPath) {
+        arrayWords[indexPath.row] = model
+        
+        tableView.reloadData()
+    }
+    
+   
     func saveText(model: WordModel) {
         arrayWords.append(model)
         tableView.reloadData()
-    }
-
-    
-}
-
-class MainTableViewCell:UITableViewCell {
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 

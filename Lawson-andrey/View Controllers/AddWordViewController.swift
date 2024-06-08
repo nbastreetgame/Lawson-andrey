@@ -7,28 +7,42 @@
 
 import UIKit
 
+// class struct enum
+
 protocol DocumetProtocol: AnyObject {
     func saveText(model:WordModel)
+    func editing(model: WordModel, indexPath: IndexPath)
 }
 
 
 class AddWordViewController:BaseViewController {
-    weak var delegate:DocumetProtocol?
+    
+    //property let
+    private  let wordTextField = UITextField()
+    private  let translateTextField = UITextField()
+    
+    //property var
+    weak var delegate: DocumetProtocol?
+    
+    var editWord: WordModel?
+    var indexPath: IndexPath?
     
     
-  private  let wordTextField = UITextField()
-  private  let translateTextField = UITextField()
-    
-    
-    
+    //override func
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupConstrains()
+        setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
         
-        
-       
-        navigationItem.title = "Новое слово"
-     
-        
+    }
+    
+    //private func
+    private func setupConstrains() {
         
         let whiteView = UIView()
         whiteView.backgroundColor = .white
@@ -49,10 +63,6 @@ class AddWordViewController:BaseViewController {
         detailWordLabel.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         detailWordLabel.textColor = .systemGray2
         
-        let wordTextField = UITextField()
-        wordTextField.placeholder = "Текст"
-        wordTextField.contentVerticalAlignment = .bottom
-        
         let wordLine = UIView()
         
         //translate
@@ -65,15 +75,10 @@ class AddWordViewController:BaseViewController {
         detailTranslateLabel.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         detailTranslateLabel.textColor = .systemGray2
         
-        
-        let translateTextField = UITextField()
-        translateTextField.placeholder = "Текст"
-        translateTextField.contentVerticalAlignment = .bottom
-        
         let translateLine = UIView()
         
         
-        for element in [wordLabel,detailWordLabel,translateLabel,detailTranslateLabel,wordTextField,wordLine,translateTextField,translateLine] {
+        for element in [wordLabel, detailWordLabel, translateLabel, detailTranslateLabel, wordTextField, wordLine, translateTextField, translateLine] {
             whiteView.addSubview(element)
             element.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -83,7 +88,7 @@ class AddWordViewController:BaseViewController {
             whiteView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             whiteView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             whiteView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-           
+            
             
             wordLabel.topAnchor.constraint(equalTo: whiteView.topAnchor, constant: 18),
             wordLabel.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 21),
@@ -128,39 +133,50 @@ class AddWordViewController:BaseViewController {
         wordLine.backgroundColor = .systemGray4
         translateLine.backgroundColor = .systemGray4
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(saveAction(action:)))
-                                                            
-                                                            
-}
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = false
-        
     }
     
+    private func setupView() {
+        navigationItem.title = "Новое слово"
+        
+        wordTextField.placeholder = "Текст"
+        wordTextField.contentVerticalAlignment = .bottom
+        
+        translateTextField.placeholder = "Текст"
+        translateTextField.contentVerticalAlignment = .bottom
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(saveAction(action:)))
+        
+        wordTextField.text = editWord?.word
+        translateTextField.text = editWord?.translate
+    }
     
     @objc private func saveAction(action sender: UIBarButtonItem){
-        // 1 - перекинуть на первый экран
-        // 2 - проверить на наличие букв
-        //guard if
         
-        
-        guard let word = wordTextField.text,word != "", let translate = translateTextField.text,translate != "" else {
+        guard let word = wordTextField.text, word != "", let translate = translateTextField.text, translate != "" else {
             let alert = UIAlertController(title: "Error", message: "Введите текст", preferredStyle: .alert)
             let ok = UIAlertAction(title: "cancel", style: .cancel)
             alert.addAction(ok)
             present(alert, animated: true)
             return
         }
-         
-       
+        
         let model = WordModel(word: word, translate: translate)
         
+        if let indexPath = indexPath {
+            //editing
+            delegate?.editing(model: model, indexPath: indexPath)
+            navigationController?.popViewController(animated: true)
+        } else {
+            //new word
+            delegate?.saveText(model: model)
+            navigationController?.popViewController(animated: true)
+        }
         
-        delegate?.saveText(model: model)
-        navigationController?.popViewController(animated: true)
         
     }
+    
+    // other actions
 }
 
+
+// extensions
