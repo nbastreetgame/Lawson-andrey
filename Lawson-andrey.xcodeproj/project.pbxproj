@@ -15,6 +15,7 @@
 		185C0C852BBC0845004F77D2 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185C0C842BBC0845004F77D2 /* StartViewController.swift */; };
 		186294992B92108700E7A3F3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186294982B92108700E7A3F3 /* MainViewController.swift */; };
 		186439FC2BC0156500060137 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186439FB2BC0156500060137 /* AddWordViewController.swift */; };
+		18FCF3712C2218E800A25773 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCF3702C2218E800A25773 /* MainTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		185C0C842BBC0845004F77D2 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		186294982B92108700E7A3F3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		186439FB2BC0156500060137 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
+		18FCF3702C2218E800A25773 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 		1845ECD22B835ECE00E64A00 /* Lawson-andrey */ = {
 			isa = PBXGroup;
 			children = (
+				18FCF36F2C2218B200A25773 /* Cells */,
 				185C0C812BBC0767004F77D2 /* View Controllers */,
 				1845ECE12B835ECF00E64A00 /* Info.plist */,
 				1845ECD32B835ECE00E64A00 /* AppDelegate.swift */,
@@ -79,6 +82,14 @@
 				186439FB2BC0156500060137 /* AddWordViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		18FCF36F2C2218B200A25773 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				18FCF3702C2218E800A25773 /* MainTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +165,7 @@
 				1845ECD82B835ECE00E64A00 /* ViewController.swift in Sources */,
 				1845ECD42B835ECE00E64A00 /* AppDelegate.swift in Sources */,
 				186439FC2BC0156500060137 /* AddWordViewController.swift in Sources */,
+				18FCF3712C2218E800A25773 /* MainTableViewCell.swift in Sources */,
 				1845ECD62B835ECE00E64A00 /* SceneDelegate.swift in Sources */,
 				186294992B92108700E7A3F3 /* MainViewController.swift in Sources */,
 				185C0C852BBC0845004F77D2 /* StartViewController.swift in Sources */,

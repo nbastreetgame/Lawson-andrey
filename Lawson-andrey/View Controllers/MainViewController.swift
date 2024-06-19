@@ -13,7 +13,7 @@ struct WordModel {
 }
 
 
-class MainViewController: BaseViewController,DocumetProtocol {
+class MainViewController: BaseViewController {
     
   
     private let tableView = UITableView(frame:.zero, style: .plain)
@@ -34,12 +34,19 @@ class MainViewController: BaseViewController,DocumetProtocol {
         super.viewDidLoad()
         setupNavigationView()
         setupTableView()
+        testClousure(text: "csdhfv"){
+            
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
     }
-    
+    func testClousure(text:String,function: () -> Void) {
+        print(text)
+        
+        function()
+    }
 }
 
 private extension MainViewController{
@@ -82,13 +89,18 @@ private extension MainViewController{
     
     @objc private func addButtonAction(_sender:UIBarButtonItem){
         let vc = AddWordViewController()
+        
         vc.delegate = self
+        
+      
+        
         navigationController?.pushViewController(vc, animated: true)
+      
     }
     
     
 }
-
+//MARK: - UITableViewDataSource, UITableViewDelegate
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -112,28 +124,57 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        cell?.backgroundColor = .systemYellow
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let value = arrayWords[indexPath.row]
+     
+        
+        let vc = AddWordViewController()
+        
+        vc.delegate = self
+        
+        vc.editWord = value
+        
+        vc.indexPath = indexPath
+        
+        navigationController?.pushViewController(vc, animated: true)
+      
+    }
+    //свайп с задней стороны
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let contextualAction = UIContextualAction.init(style: .destructive, title: "Удалить") { _,_,_ in
+           // 1 - удалить элемент из массива
+            self.arrayWords.remove(at: indexPath.row)
+            
+           //2 - indexPatch удалить
+            
+            tableView.reloadData()
+            
+        }
+        let SwipeActionsConfiguration = UISwipeActionsConfiguration.init(actions: [contextualAction])
+        
+        return SwipeActionsConfiguration
     }
     
+    
+}
+//MARK: - Document Protocol
+
+extension MainViewController: DocumetProtocol {
+    func editing(model: WordModel, indexPath: IndexPath) {
+        arrayWords[indexPath.row] = model
+        
+        tableView.reloadData()
+    }
+    
+   
     func saveText(model: WordModel) {
         arrayWords.append(model)
         tableView.reloadData()
     }
-
-    
 }
 
-class MainTableViewCell:UITableViewCell {
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
 
 
 //MARK: - SwiftUI
