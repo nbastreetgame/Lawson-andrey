@@ -16,6 +16,7 @@
 		186294992B92108700E7A3F3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186294982B92108700E7A3F3 /* MainViewController.swift */; };
 		186439FC2BC0156500060137 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186439FB2BC0156500060137 /* AddWordViewController.swift */; };
 		18FCF3712C2218E800A25773 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCF3702C2218E800A25773 /* MainTableViewCell.swift */; };
+		5C2757282C27179200D09694 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5C2757272C27179200D09694 /* RealmSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C2757282C27179200D09694 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +110,9 @@
 			dependencies = (
 			);
 			name = "Lawson-andrey";
+			packageProductDependencies = (
+				5C2757272C27179200D09694 /* RealmSwift */,
+			);
 			productName = "Lawson-andrey";
 			productReference = 1845ECD02B835ECE00E64A00 /* Lawson-andrey.app */;
 			productType = "com.apple.product-type.application";
@@ -136,6 +141,9 @@
 				Base,
 			);
 			mainGroup = 1845ECC72B835ECE00E64A00;
+			packageReferences = (
+				5C2757262C27179200D09694 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = 1845ECD12B835ECE00E64A00 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -383,6 +391,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5C2757262C27179200D09694 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.51.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5C2757272C27179200D09694 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C2757262C27179200D09694 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1845ECC82B835ECE00E64A00 /* Project object */;
 }

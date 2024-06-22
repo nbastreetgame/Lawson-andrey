@@ -6,10 +6,20 @@
 //
 
 import UIKit
+import RealmSwift
 
-struct WordModel {
-    let word:String
-    let translate:String
+
+class WordModel: Object {
+    @Persisted(primaryKey: true) var _id: UUID
+    @Persisted var word: String
+    @Persisted var translate: String
+    
+   convenience init(word: String, translate: String) {
+        self.init()
+        self._id = UUID()
+        self.word = word
+        self.translate = translate
+    }
 }
 
 
@@ -17,14 +27,7 @@ class MainViewController: BaseViewController {
     
   
     private let tableView = UITableView(frame:.zero, style: .plain)
-    var arrayWords: [WordModel] = [WordModel(word: "Hello", translate: "Привет"),
-                                              WordModel(word: "House", translate: "Дом"),
-                                              WordModel(word: "Winter", translate: "Зима"),
-                                              WordModel(word: "Book", translate: "Книга"),
-                                              WordModel(word: "Island", translate: "Остров"),
-                                              WordModel(word: "Car", translate: "Машина"),
-      WordModel(word: "ewiuhfiuewhi duhfieu uefuihreiuh egughiuerhi ewgfuiehiu eriufheiu", translate: "рвгшаршгкуришгу гшурашгрукшг гукршгарукшг3 вуршгарукшг"), 
-    ]
+    private var arrayWords: Results<WordModel>!
     override func loadView() {
         super.loadView()
         setupConstraint()
@@ -38,6 +41,13 @@ class MainViewController: BaseViewController {
         testClousure(text: "csdhfv"){
             
         }
+        
+        //создать и педактирование
+        let realm = try! Realm()
+        let result = realm.objects(WordModel.self)
+        
+        arrayWords = result
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -150,7 +160,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         
         let contextualAction = UIContextualAction.init(style: .destructive, title: "Удалить") { _,_,_ in
            // 1 - удалить элемент из массива
-            self.arrayWords.remove(at: indexPath.row)
+//            self.arrayWords.remove(at: indexPath.row)
             
            //2 - indexPatch удалить
             
@@ -168,14 +178,24 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension MainViewController: DocumetProtocol {
     func editing(model: WordModel, indexPath: IndexPath) {
-        arrayWords[indexPath.row] = model
+//        arrayWords[indexPath.row] = model
+//        
+//        let realm = try! Realm()
+//        try! realm.write {
+//            realm.add(model, update: .modified)
+//        }
         
         tableView.reloadData()
     }
     
    
     func saveText(model: WordModel) {
-        arrayWords.append(model)
+        let realm = try! Realm()
+        
+        try! realm.write {
+            realm.add(model)
+        }
+//        arrayWords.append(model)
         tableView.reloadData()
     }
 }
