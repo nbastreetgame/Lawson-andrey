@@ -23,7 +23,8 @@ class MainViewController: BaseViewController {
                                               WordModel(word: "Book", translate: "Книга"),
                                               WordModel(word: "Island", translate: "Остров"),
                                               WordModel(word: "Car", translate: "Машина"),
-       ]
+      WordModel(word: "ewiuhfiuewhi duhfieu uefuihreiuh egughiuerhi ewgfuiehiu eriufheiu", translate: "рвгшаршгкуришгу гшурашгрукшг гукршгарукшг3 вуршгарукшг"), 
+    ]
     override func loadView() {
         super.loadView()
         setupConstraint()
@@ -108,17 +109,21 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        guard  let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? MainTableViewCell else {
+            return UITableViewCell()
+        }
         
         
         
         //word
         let string = arrayWords[indexPath.row].word
-        cell.textLabel?.text = string
+       
         
         //translate
         let translate = arrayWords[indexPath.row].translate
-        cell.detailTextLabel?.text = translate
+      
+        
+        cell.setup(title: string, detail: translate)
         
         return cell
     }
