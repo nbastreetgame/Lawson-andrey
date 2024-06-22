@@ -108,17 +108,17 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? MainTableViewCell else { return UITableViewCell() }
         
         
         
         //word
         let string = arrayWords[indexPath.row].word
-        cell.textLabel?.text = string
         
         //translate
         let translate = arrayWords[indexPath.row].translate
-        cell.detailTextLabel?.text = translate
+        
+        cell.setuo(title: string, deteal: translate)
         
         return cell
     }
