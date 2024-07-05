@@ -26,19 +26,21 @@ class MainTableViewCell:UITableViewCell {
         
         
         NSLayoutConstraint.activate([
-            titleWord.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            titleWord.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17),
-            titleWord.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 5),
             
-            detailWordLabel.topAnchor.constraint(equalTo: titleWord.bottomAnchor, constant: 3),
-            detailWordLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17),
-            detailWordLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 5),
-            detailWordLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3),
+titleWord.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+titleWord.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17),
+
             
-            playImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            playImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            playImageView.widthAnchor.constraint(equalToConstant: 24),
-            playImageView.heightAnchor.constraint(equalToConstant: 24)
+detailWordLabel.topAnchor.constraint(equalTo: titleWord.bottomAnchor, constant: 3),
+detailWordLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17),
+detailWordLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3),
+            
+playImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+playImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+playImageView.widthAnchor.constraint(equalToConstant: 24),
+playImageView.heightAnchor.constraint(equalToConstant: 24),
+playImageView.leadingAnchor.constraint(greaterThanOrEqualTo: titleWord.trailingAnchor, constant: 10),
+playImageView.leadingAnchor.constraint(greaterThanOrEqualTo: detailWordLabel.trailingAnchor, constant: 10)
             
         ])
         titleWord.font = UIFont.systemFont(ofSize: 16, weight: .bold)

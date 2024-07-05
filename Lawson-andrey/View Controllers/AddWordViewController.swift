@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 // class struct enum
 
@@ -178,14 +179,22 @@ private  let translateTextField = UITextField()
         }
          
        
-        let model = WordModel(word: word, translate: translate)
         
-        if let indexPath = indexPath{
+        
+        if let editWord = editWord, let indexPath = indexPath {
+            let realm = try! Realm()
+            
+            try! realm.write{
+                editWord.word = word
+                editWord.translate = translate
+            }
+            
             //editing
-            delegate?.editing(model: model, indexPath: indexPath)
+            delegate?.editing(model: editWord, indexPath: indexPath)
             navigationController?.popViewController(animated: true)
         }else{
             //new word
+            let model = WordModel(word: word, translate: translate)
             delegate?.saveText(model: model)
             navigationController?.popViewController(animated: true)
         }
