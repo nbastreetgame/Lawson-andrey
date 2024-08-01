@@ -17,6 +17,8 @@
 		186439FC2BC0156500060137 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186439FB2BC0156500060137 /* AddWordViewController.swift */; };
 		18FCF3712C2218E800A25773 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCF3702C2218E800A25773 /* MainTableViewCell.swift */; };
 		5C2757282C27179200D09694 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5C2757272C27179200D09694 /* RealmSwift */; };
+		5C620D482C33E9E40048F405 /* WordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C620D472C33E9E40048F405 /* WordModel.swift */; };
+		5C620D4B2C33EA640048F405 /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C620D4A2C33EA640048F405 /* DataBase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		186294982B92108700E7A3F3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		186439FB2BC0156500060137 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
 		18FCF3702C2218E800A25773 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		5C620D472C33E9E40048F405 /* WordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordModel.swift; sourceTree = "<group>"; };
+		5C620D4A2C33EA640048F405 /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,8 @@
 		1845ECD22B835ECE00E64A00 /* Lawson-andrey */ = {
 			isa = PBXGroup;
 			children = (
+				5C620D492C33EA3A0048F405 /* StorageManager */,
+				5C620D462C33E9B60048F405 /* Models */,
 				18FCF36F2C2218B200A25773 /* Cells */,
 				185C0C812BBC0767004F77D2 /* View Controllers */,
 				1845ECE12B835ECF00E64A00 /* Info.plist */,
@@ -92,6 +98,22 @@
 				18FCF3702C2218E800A25773 /* MainTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		5C620D462C33E9B60048F405 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5C620D472C33E9E40048F405 /* WordModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5C620D492C33EA3A0048F405 /* StorageManager */ = {
+			isa = PBXGroup;
+			children = (
+				5C620D4A2C33EA640048F405 /* DataBase.swift */,
+			);
+			path = StorageManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,9 +196,11 @@
 				1845ECD42B835ECE00E64A00 /* AppDelegate.swift in Sources */,
 				186439FC2BC0156500060137 /* AddWordViewController.swift in Sources */,
 				18FCF3712C2218E800A25773 /* MainTableViewCell.swift in Sources */,
+				5C620D4B2C33EA640048F405 /* DataBase.swift in Sources */,
 				1845ECD62B835ECE00E64A00 /* SceneDelegate.swift in Sources */,
 				186294992B92108700E7A3F3 /* MainViewController.swift in Sources */,
 				185C0C852BBC0845004F77D2 /* StartViewController.swift in Sources */,
+				5C620D482C33E9E40048F405 /* WordModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
