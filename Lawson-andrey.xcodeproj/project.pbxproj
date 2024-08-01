@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		182D41522C37CAB400FC9ACA /* WordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182D41512C37CAB400FC9ACA /* WordModel.swift */; };
+		182D41552C37CEC400FC9ACA /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182D41542C37CEC400FC9ACA /* DataBase.swift */; };
 		1845ECD42B835ECE00E64A00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1845ECD32B835ECE00E64A00 /* AppDelegate.swift */; };
 		1845ECD62B835ECE00E64A00 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1845ECD52B835ECE00E64A00 /* SceneDelegate.swift */; };
 		1845ECD82B835ECE00E64A00 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1845ECD72B835ECE00E64A00 /* ViewController.swift */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		182D41512C37CAB400FC9ACA /* WordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordModel.swift; sourceTree = "<group>"; };
+		182D41542C37CEC400FC9ACA /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		1845ECD02B835ECE00E64A00 /* Lawson-andrey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lawson-andrey.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1845ECD32B835ECE00E64A00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1845ECD52B835ECE00E64A00 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +49,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		182D41502C37CA3500FC9ACA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				182D41512C37CAB400FC9ACA /* WordModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		182D41532C37CE5700FC9ACA /* StorageManager */ = {
+			isa = PBXGroup;
+			children = (
+				182D41542C37CEC400FC9ACA /* DataBase.swift */,
+			);
+			path = StorageManager;
+			sourceTree = "<group>";
+		};
 		1845ECC72B835ECE00E64A00 = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +84,8 @@
 		1845ECD22B835ECE00E64A00 /* Lawson-andrey */ = {
 			isa = PBXGroup;
 			children = (
+				182D41532C37CE5700FC9ACA /* StorageManager */,
+				182D41502C37CA3500FC9ACA /* Models */,
 				18FCF36F2C2218B200A25773 /* Cells */,
 				185C0C812BBC0767004F77D2 /* View Controllers */,
 				1845ECE12B835ECF00E64A00 /* Info.plist */,
@@ -174,9 +196,11 @@
 				1845ECD42B835ECE00E64A00 /* AppDelegate.swift in Sources */,
 				186439FC2BC0156500060137 /* AddWordViewController.swift in Sources */,
 				18FCF3712C2218E800A25773 /* MainTableViewCell.swift in Sources */,
+				182D41552C37CEC400FC9ACA /* DataBase.swift in Sources */,
 				1845ECD62B835ECE00E64A00 /* SceneDelegate.swift in Sources */,
 				186294992B92108700E7A3F3 /* MainViewController.swift in Sources */,
 				185C0C852BBC0845004F77D2 /* StartViewController.swift in Sources */,
+				182D41522C37CAB400FC9ACA /* WordModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,27 +6,14 @@
 //
 
 import UIKit
-import RealmSwift
 
 
-class WordModel: Object {
-    @Persisted(primaryKey: true) var _id: UUID
-    @Persisted var word: String
-    @Persisted var translate: String
-    
- convenience   init( word: String, translate: String) {
-        self.init()
-        self._id = UUID()
-        self.word = word
-        self.translate = translate
-    }
-}
 
 class MainViewController: BaseViewController {
     
   
     private let tableView = UITableView(frame:.zero, style: .plain)
-   private  var arrayWords: Results<WordModel>!
+   private  var arrayWords:[WordModel] =  DataBase.shared.getWords()
     
     override func loadView() {
         super.loadView()
@@ -41,14 +28,8 @@ class MainViewController: BaseViewController {
         testClousure(text: "csdhfv"){
             
         }
-        //создание и редактирование realm
         
-        
-        let realm = try! Realm()
-        let result = realm.objects(WordModel.self)
-        
-        arrayWords = result
-            
+             
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -162,8 +143,15 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         
         let contextualAction = UIContextualAction.init(style: .destructive, title: "Удалить") { _,_,_ in
            // 1 - удалить элемент из массива
-    //        self.arrayWords.remove(at: indexPath.row)
+     //       let value = self.arrayWords[indexPath.row]
             
+      //      let realm = try! Realm()
+            
+    //        try! realm.write{
+    //            realm.delete(value)
+     //       }
+            
+              
            //2 - indexPatch удалить
             
             tableView.reloadData()
@@ -179,26 +167,24 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 //MARK: - Document Protocol
 
 extension MainViewController: DocumetProtocol {
-    func editing(model: WordModel, indexPath: IndexPath) {
-  //      arrayWords[indexPath.row] = model
-      
-   //     let realm = try! Realm()
-   //     try! realm.write{
-   //         realm.add(model, update: .modified)
-   //     }
-
+    
+    func editingReloadData() {
+        arrayWords = DataBase.shared.getWords()
+        
         tableView.reloadData()
     }
     
    
     func saveText(model: WordModel) {
-        let realm = try! Realm()
+     
+        DataBase.shared.save(model: model)
+        arrayWords = DataBase.shared.getWords()
         
-      try!  realm.write{
-            realm.add(model)
-        }
-   //     arrayWords.append(model)
         tableView.reloadData()
+    }
+    func delete(model:WordModel){
+        DataBase.shared.delete(model: model)
+        arrayWords = DataBase.shared.getWords()
     }
 }
 

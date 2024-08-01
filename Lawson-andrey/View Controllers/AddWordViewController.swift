@@ -6,13 +6,14 @@
 //
 
 import UIKit
-import RealmSwift
+
 
 // class struct enum
 
 protocol DocumetProtocol: AnyObject {
+    
     func saveText(model:WordModel)
-    func editing(model:WordModel, indexPath:IndexPath)
+    func editingReloadData()
 }
 
 
@@ -181,16 +182,12 @@ private  let translateTextField = UITextField()
        
         
         
-        if let editWord = editWord, let indexPath = indexPath {
-            let realm = try! Realm()
-            
-            try! realm.write{
-                editWord.word = word
-                editWord.translate = translate
-            }
+        if let editWord = editWord, let _ = indexPath {
+        
+            DataBase.shared.editing(editWord, word: word, translate: translate)
             
             //editing
-            delegate?.editing(model: editWord, indexPath: indexPath)
+            delegate?.editingReloadData()
             navigationController?.popViewController(animated: true)
         }else{
             //new word
