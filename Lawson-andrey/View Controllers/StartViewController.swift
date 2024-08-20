@@ -1,9 +1,4 @@
-//
-//  StartViewControllers.swift
-//  Lawson-andrey
-//
-//  Created by Apple on 02.04.2024.
-//
+
 
 import Foundation
 class StartViewController: UIViewController {

@@ -13,7 +13,7 @@ class MainViewController: BaseViewController {
     
   
     private let tableView = UITableView(frame:.zero, style: .plain)
-   private  var arrayWords:[WordModel] =  DataBase.shared.getWords()
+private  var arrayWords:[WordModel] =  DataBase.shared.get(type: WordModel.self)
     
     override func loadView() {
         super.loadView()
@@ -169,7 +169,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 extension MainViewController: DocumetProtocol {
     
     func editingReloadData() {
-        arrayWords = DataBase.shared.getWords()
+        arrayWords = DataBase.shared.get(type: WordModel.self)
         
         tableView.reloadData()
     }
@@ -177,14 +177,14 @@ extension MainViewController: DocumetProtocol {
    
     func saveText(model: WordModel) {
      
-        DataBase.shared.save(model: model)
-        arrayWords = DataBase.shared.getWords()
+        DataBase.shared.save(model)
+        arrayWords = DataBase.shared.get(type: WordModel.self)
         
         tableView.reloadData()
     }
     func delete(model:WordModel){
         DataBase.shared.delete(model: model)
-        arrayWords = DataBase.shared.getWords()
+        arrayWords = DataBase.shared.get(type: WordModel.self)
     }
 }
 

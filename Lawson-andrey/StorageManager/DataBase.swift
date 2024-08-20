@@ -1,9 +1,3 @@
-//
-//  DataBase.swift
-//  Lawson-andrey
-//
-//  Created by Apple on 05.07.2024.
-//
 
 import Foundation
 import RealmSwift
@@ -17,20 +11,29 @@ class DataBase {
     
     //1 - get
     
-    func getWords() -> [WordModel] {
-        let result = realm.objects(WordModel.self)
+    func get<T>(type: T.Type) -> [T] where T: Object {
+        let result = realm.objects(T.self)
         
        return Array(result)
     }
     
     //2 - save
-    func save(model: WordModel) {
+    func save(_ object: Object) {
         
       try!  realm.write{
-            realm.add(model)
+            realm.add(object)
         }
    
     }
+    
+    func save(_ objects: [Object]) {
+        
+      try!  realm.write{
+            realm.add(objects)
+        }
+   
+    }
+    
     //3 - editing
     func editing(_ editWord:WordModel, word:String, translate:String) {
        
@@ -40,8 +43,16 @@ class DataBase {
             editWord.translate = translate
         }
     }
+    
+    
     //4 - delete
-    func delete(model:WordModel){
+    func delete(model:Object){
+        try! realm.write{
+            realm.delete(model)
+        }
+    }
+    
+    func delete(model:[Object]){
         try! realm.write{
             realm.delete(model)
         }

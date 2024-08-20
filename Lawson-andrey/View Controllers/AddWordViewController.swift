@@ -1,12 +1,4 @@
-//
-//  AddWordViewController.swift
-//  Lawson-andrey
-//
-//  Created by Apple on 05.04.2024.
-//
-
 import UIKit
-
 
 // class struct enum
 
@@ -19,23 +11,24 @@ protocol DocumetProtocol: AnyObject {
 
 class AddWordViewController:BaseViewController {
     
-// property let
- private  let wordTextField = UITextField()
-private  let translateTextField = UITextField()
+    // property let
+    private  let wordTextField = UITextField()
+    private  let translateTextField = UITextField()
     
-// property var
+    
+    // property var
     weak var delegate:DocumetProtocol?
     
     var editWord: WordModel?
     var indexPath: IndexPath?
-// override func
+    // override func
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupConstrains()
         setupView()
-      
-}
+        
+    }
     //private func
     private func setupConstrains(){
         
@@ -48,6 +41,40 @@ private  let translateTextField = UITextField()
         view.addSubview(whiteView)
         
         whiteView.translatesAutoresizingMaskIntoConstraints = false
+        
+        //upperWhiteView
+        let upperWhiteView = UIView()
+        upperWhiteView.backgroundColor = .white
+        upperWhiteView.layer.cornerRadius = 15
+        
+        view.addSubview(upperWhiteView)
+        
+        upperWhiteView.translatesAutoresizingMaskIntoConstraints = false
+        
+        //imageView
+        
+        let  imageView = UIImageView(image: UIImage(systemName: "photo.badge.plus"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = true
+        
+        
+        upperWhiteView.addSubview(imageView)
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        
+        
+        //chooseImageLabel
+        let chooseImageLabel = UILabel()
+        chooseImageLabel.text = "Выбирите изображение"
+        
+        chooseImageLabel.textColor = .gray
+        chooseImageLabel.textAlignment = .center
+        
+        upperWhiteView.addSubview(chooseImageLabel)
+        
+        chooseImageLabel.translatesAutoresizingMaskIntoConstraints = false
         
         //word
         let wordLabel = UILabel()
@@ -76,8 +103,8 @@ private  let translateTextField = UITextField()
         detailTranslateLabel.textColor = .systemGray2
         
         
-       
-       
+        
+        
         
         let translateLine = UIView()
         
@@ -89,10 +116,10 @@ private  let translateTextField = UITextField()
         
         
         NSLayoutConstraint.activate([
-            whiteView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            whiteView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 270),
             whiteView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             whiteView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-           
+            
             
             wordLabel.topAnchor.constraint(equalTo: whiteView.topAnchor, constant: 18),
             wordLabel.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 21),
@@ -131,12 +158,26 @@ private  let translateTextField = UITextField()
             translateLine.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 18),
             translateLine.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -21),
             translateLine.heightAnchor.constraint(equalToConstant: 1),
-            translateLine.bottomAnchor.constraint(equalTo: whiteView.bottomAnchor, constant: -20)
+            translateLine.bottomAnchor.constraint(equalTo: whiteView.bottomAnchor, constant: -20),
+            
+            upperWhiteView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            upperWhiteView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            upperWhiteView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            upperWhiteView.heightAnchor.constraint(equalTo: whiteView.heightAnchor),
+            
+            imageView.centerXAnchor.constraint(equalTo: upperWhiteView.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: upperWhiteView.centerYAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 40),
+            imageView.heightAnchor.constraint(equalToConstant: 40),
+            
+            chooseImageLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
+            chooseImageLabel.centerXAnchor.constraint(equalTo: upperWhiteView.centerXAnchor),
+            chooseImageLabel.bottomAnchor.constraint(equalTo: upperWhiteView.bottomAnchor, constant: -10)
         ])
         
         wordLine.backgroundColor = .systemGray4
         translateLine.backgroundColor = .systemGray4
-       
+        
         
     }
     
@@ -156,20 +197,20 @@ private  let translateTextField = UITextField()
         translateTextField.text = editWord?.translate
     }
     
-   //override func
+    //override func
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
         
     }
     
-  // private func
+    // private func
     @objc private func saveAction(action sender: UIBarButtonItem){
-       
         
         
-        guard let word = wordTextField.text, 
-                word != "",
+        
+        guard let word = wordTextField.text,
+              word != "",
               let translate = translateTextField.text,
               translate != "" else {
             let alert = UIAlertController(title: "Error", message: "Введите текст", preferredStyle: .alert)
@@ -178,12 +219,12 @@ private  let translateTextField = UITextField()
             present(alert, animated: true)
             return
         }
-         
-       
+        
+        
         
         
         if let editWord = editWord, let _ = indexPath {
-        
+            
             DataBase.shared.editing(editWord, word: word, translate: translate)
             
             //editing
@@ -198,6 +239,12 @@ private  let translateTextField = UITextField()
         
         
     }
-    // other actions
+    private func setupTapImage(){
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+       
+    }
+    @objc private func imageTapped(){
+       
+    }
+    
 }
-  // extensions
