@@ -8,12 +8,12 @@ protocol DocumetProtocol: AnyObject {
     func editingReloadData()
 }
 
-
 class AddWordViewController:BaseViewController {
     
     // property let
     private  let wordTextField = UITextField()
     private  let translateTextField = UITextField()
+    private let upperWhiteView = UIView()
     
     
     // property var
@@ -27,157 +27,202 @@ class AddWordViewController:BaseViewController {
         
         setupConstrains()
         setupView()
-        
+        setupTapImage()
     }
+    
+    private  func setupTextFieldView(title: String, detail: String, _ textField: UITextField) -> UIView {
+      
+      let newView = UIView()
+      
+      let wordLabel = UILabel()
+      wordLabel.text = title //"Слово"
+      wordLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+      
+   
+      
+      let detailWordLabel = UILabel()
+      detailWordLabel.text = detail // "На вашем языке"
+      detailWordLabel.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+      detailWordLabel.textColor = .systemGray2
+      
+    
+      
+      let wordLine = UIView()
+      
+      [wordLabel, detailWordLabel, textField, wordLine].forEach { subview in
+          
+          newView.addSubview(subview)
+          subview.translatesAutoresizingMaskIntoConstraints = false
+      }
+        wordLine.backgroundColor = .systemGray4
+      
+      
+      NSLayoutConstraint.activate([
+        wordLabel.topAnchor.constraint(equalTo: newView.topAnchor, constant: 13),
+        wordLabel.leadingAnchor.constraint(equalTo: newView.leadingAnchor),
+        wordLabel.trailingAnchor.constraint(equalTo: newView.trailingAnchor),
+        wordLabel.heightAnchor.constraint(equalToConstant: 19),
+        
+        detailWordLabel.topAnchor.constraint(equalTo: wordLabel.bottomAnchor, constant: 1),
+        detailWordLabel.leadingAnchor.constraint(equalTo: newView.leadingAnchor),
+        detailWordLabel.trailingAnchor.constraint(equalTo: newView.trailingAnchor),
+        detailWordLabel.heightAnchor.constraint(equalToConstant: 12),
+        
+        textField.topAnchor.constraint(equalTo: detailWordLabel.bottomAnchor, constant: 5),
+        textField.leadingAnchor.constraint(equalTo: newView.leadingAnchor),
+        textField.trailingAnchor.constraint(equalTo: newView.trailingAnchor),
+        textField.heightAnchor.constraint(equalToConstant: 27),
+        
+        wordLine.topAnchor.constraint(equalTo: textField.bottomAnchor),
+        wordLine.bottomAnchor.constraint(equalTo: newView.bottomAnchor),
+        wordLine.leadingAnchor.constraint(equalTo: newView.leadingAnchor),
+        wordLine.trailingAnchor.constraint(equalTo: newView.trailingAnchor),
+        wordLine.heightAnchor.constraint(equalToConstant: 1)
+        
+      ])
+      
+      return newView
+    }
+    
+    
+    
+    
     //private func
     private func setupConstrains(){
         
         
         
-        let whiteView = UIView()
-        whiteView.backgroundColor = .white
-        whiteView.layer.cornerRadius = 15
+       //upperWhiteView
+        let chooseImageLabel = UILabel()
+        let  imageView = UIImageView(image: UIImage(named: "photo badge"))
+        imageView.contentMode = .scaleAspectFit
         
-        view.addSubview(whiteView)
+        //chooseImageLabel
+        chooseImageLabel.text = "Выбирите \nизображение"
+        chooseImageLabel.textColor = .gray
+        chooseImageLabel.textAlignment = .center
+        chooseImageLabel.numberOfLines = 0
+       
         
-        whiteView.translatesAutoresizingMaskIntoConstraints = false
+     let whiteView = UIView()
         
-        //upperWhiteView
-        let upperWhiteView = UIView()
-        upperWhiteView.backgroundColor = .white
-        upperWhiteView.layer.cornerRadius = 15
         
-        view.addSubview(upperWhiteView)
+        //word
+    let wordView = setupTextFieldView(title: "Слово", detail: "На вашем языке", wordTextField)
+    let translateView = setupTextFieldView(title: "Перевод", detail: "На языке звучания", translateTextField)
+       
+        let playerStackView = UIStackView()
+        playerStackView.axis = .vertical
+        playerStackView.distribution = .fill
+        playerStackView.alignment = .fill
+        playerStackView.spacing = 27
+        playerStackView.backgroundColor = .green
+playerStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        upperWhiteView.translatesAutoresizingMaskIntoConstraints = false
+        let languageStackView = UIStackView()
+        languageStackView.axis = .vertical
+        languageStackView.distribution = .fill
+        languageStackView.alignment = .fill
+        languageStackView.spacing = 27
+        languageStackView.backgroundColor = .orange
+languageStackView.translatesAutoresizingMaskIntoConstraints = false
+ 
+        
+        
+        
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 27
+        stackView.addArrangedSubview(wordView)
+        stackView.addArrangedSubview(translateView)
+        stackView.addArrangedSubview(playerStackView)
+        stackView.addArrangedSubview(languageStackView)
+       
+        
+   
+        let upStackView = UIStackView()
+        upStackView.axis = .vertical
+        upStackView.distribution = .fillEqually
+        upStackView.alignment = .center
+        upStackView.spacing = 1
+        upStackView.addArrangedSubview(imageView)
+        upStackView.addArrangedSubview(chooseImageLabel)
+        
+        
+        
+        
+        upperWhiteView.addSubview(upStackView)
+  
+        whiteView.addSubview(stackView)
+      
+      
+       
+        
+        
+        [upperWhiteView,whiteView].forEach({
+            $0.layer.cornerRadius = 15
+            $0.backgroundColor = .white
+            view.addSubview($0)
+        })
+        
         
         //imageView
         
-        let  imageView = UIImageView(image: UIImage(systemName: "photo.badge.plus"))
-        imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
+       
         
-        
-        upperWhiteView.addSubview(imageView)
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        
-        
-        //chooseImageLabel
-        let chooseImageLabel = UILabel()
-        chooseImageLabel.text = "Выбирите изображение"
-        
-        chooseImageLabel.textColor = .gray
-        chooseImageLabel.textAlignment = .center
-        
-        upperWhiteView.addSubview(chooseImageLabel)
-        
-        chooseImageLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        //word
-        let wordLabel = UILabel()
-        wordLabel.text = "Слово"
-        wordLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        
-        
-        let detailWordLabel = UILabel()
-        detailWordLabel.text = "На вашем языке"
-        detailWordLabel.font = UIFont.systemFont(ofSize: 10, weight: .regular)
-        detailWordLabel.textColor = .systemGray2
-        
-        
-        
-        
-        let wordLine = UIView()
-        
-        //translate
-        let translateLabel = UILabel()
-        translateLabel.text = "Перевод"
-        translateLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        
-        let detailTranslateLabel = UILabel()
-        detailTranslateLabel.text = "На языке звучания"
-        detailTranslateLabel.font = UIFont.systemFont(ofSize: 10, weight: .regular)
-        detailTranslateLabel.textColor = .systemGray2
-        
-        
-        
-        
-        
-        let translateLine = UIView()
-        
-        
-        for element in [wordLabel, detailWordLabel, translateLabel, detailTranslateLabel, wordTextField, wordLine, translateTextField, translateLine] {
-            whiteView.addSubview(element)
-            element.translatesAutoresizingMaskIntoConstraints = false
+[  stackView, upStackView].forEach { subview in
+            subview.translatesAutoresizingMaskIntoConstraints = false
         }
         
+
+        
+        let mainStackView = UIStackView()
+        mainStackView.axis = .vertical
+        mainStackView.distribution = .fill
+        mainStackView.alignment = .fill
+        mainStackView.spacing = 17
+        
+        
+        view.addSubview(mainStackView)
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        mainStackView.addArrangedSubview(upperWhiteView)
+        mainStackView.addArrangedSubview(whiteView)
         
         NSLayoutConstraint.activate([
-            whiteView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 270),
-            whiteView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            whiteView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            imageView.heightAnchor.constraint(equalTo: upperWhiteView.heightAnchor, multiplier: 90 / 192),
+            imageView.widthAnchor.constraint(equalTo: upperWhiteView.heightAnchor),
+            
+         
+            stackView.topAnchor.constraint(equalTo: whiteView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: whiteView.bottomAnchor,constant: -22),
+            stackView.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor,constant: 22),
+            stackView.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor,constant: -22),
             
             
-            wordLabel.topAnchor.constraint(equalTo: whiteView.topAnchor, constant: 18),
-            wordLabel.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 21),
-            wordLabel.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -21),
             
-            detailWordLabel.topAnchor.constraint(equalTo: wordLabel.bottomAnchor, constant: 1),
-            detailWordLabel.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 21),
-            detailWordLabel.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -21),
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
+            mainStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
             
-            wordTextField.topAnchor.constraint(equalTo: detailWordLabel.bottomAnchor, constant: 5),
-            wordTextField.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 21),
-            wordTextField.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -21),
-            wordTextField.heightAnchor.constraint(equalToConstant: 44),
+            upStackView.topAnchor.constraint(equalTo: upperWhiteView.topAnchor, constant: 22),
+            upStackView.bottomAnchor.constraint(lessThanOrEqualTo: upperWhiteView.bottomAnchor,  constant: -10),
+            upStackView.leadingAnchor.constraint(equalTo: upperWhiteView.leadingAnchor, constant: 15),
+            upStackView.centerXAnchor.constraint(equalTo: upperWhiteView.centerXAnchor),
+            upStackView.widthAnchor.constraint(equalToConstant: 345),
+            upStackView.heightAnchor.constraint(equalToConstant: 192),
             
-            wordLine.topAnchor.constraint(equalTo: wordTextField.bottomAnchor),
-            wordLine.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 21),
-            wordLine.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -21),
-            wordLine.heightAnchor.constraint(equalToConstant: 1),
+            playerStackView.widthAnchor.constraint(equalToConstant: 301),
+            playerStackView.heightAnchor.constraint(equalToConstant: 50),
             
-            
-            //
-            translateLabel.topAnchor.constraint(equalTo: wordLine.bottomAnchor, constant: 27),
-            translateLabel.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 21),
-            translateLabel.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -21),
-            
-            detailTranslateLabel.topAnchor.constraint(equalTo: translateLabel.bottomAnchor, constant: 1),
-            detailTranslateLabel.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 21),
-            detailTranslateLabel.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -21),
-            
-            translateTextField.topAnchor.constraint(equalTo: detailTranslateLabel.bottomAnchor, constant: 5),
-            translateTextField.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 21),
-            translateTextField.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -21),
-            translateTextField.heightAnchor.constraint(equalToConstant: 44),
-            
-            translateLine.topAnchor.constraint(equalTo: translateTextField.bottomAnchor),
-            translateLine.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 18),
-            translateLine.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -21),
-            translateLine.heightAnchor.constraint(equalToConstant: 1),
-            translateLine.bottomAnchor.constraint(equalTo: whiteView.bottomAnchor, constant: -20),
-            
-            upperWhiteView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            upperWhiteView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            upperWhiteView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            upperWhiteView.heightAnchor.constraint(equalTo: whiteView.heightAnchor),
-            
-            imageView.centerXAnchor.constraint(equalTo: upperWhiteView.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: upperWhiteView.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 40),
-            imageView.heightAnchor.constraint(equalToConstant: 40),
-            
-            chooseImageLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
-            chooseImageLabel.centerXAnchor.constraint(equalTo: upperWhiteView.centerXAnchor),
-            chooseImageLabel.bottomAnchor.constraint(equalTo: upperWhiteView.bottomAnchor, constant: -10)
-        ])
-        
-        wordLine.backgroundColor = .systemGray4
-        translateLine.backgroundColor = .systemGray4
-        
+            languageStackView.widthAnchor.constraint(equalToConstant: 302),
+            languageStackView.heightAnchor.constraint(equalToConstant: 44)
+          
+     ])
         
     }
     
@@ -207,8 +252,7 @@ class AddWordViewController:BaseViewController {
     // private func
     @objc private func saveAction(action sender: UIBarButtonItem){
         
-        
-        
+    
         guard let word = wordTextField.text,
               word != "",
               let translate = translateTextField.text,
@@ -221,8 +265,6 @@ class AddWordViewController:BaseViewController {
         }
         
         
-        
-        
         if let editWord = editWord, let _ = indexPath {
             
             DataBase.shared.editing(editWord, word: word, translate: translate)
@@ -230,7 +272,7 @@ class AddWordViewController:BaseViewController {
             //editing
             delegate?.editingReloadData()
             navigationController?.popViewController(animated: true)
-        }else{
+        } else {
             //new word
             let model = WordModel(word: word, translate: translate)
             delegate?.saveText(model: model)
@@ -241,10 +283,43 @@ class AddWordViewController:BaseViewController {
     }
     private func setupTapImage(){
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        upperWhiteView.addGestureRecognizer(tapGesture)
        
     }
     @objc private func imageTapped(){
-       
+     
+        let alertViewController = UIAlertController(title: "Выбирите действие", message: nil, preferredStyle: .actionSheet)
+        
+        let camera = UIAlertAction(title: "Камера", style: .default) { _ in
+            print("нажалась кнопка Камера")
+        }
+        
+        let galery = UIAlertAction(title: "Фотоальбом", style: .default) { _ in
+            print("нажалась кнопка Фотоальбом")
+        }
+        
+        let internet = UIAlertAction(title: "Интернет", style: .default) { _ in
+            print("нажалась кнопка Интернет")
+        }
+        
+        let delete = UIAlertAction(title: "Удалить", style: .destructive) { _ in
+           print("нажалась кнопка Удалить")
+        }
+        
+        let cancel = UIAlertAction(title: "Отмена", style: .cancel) { _ in
+         print("нажалась кнопка Отмена")
+        }
+        
+        alertViewController.addAction(camera)
+        alertViewController.addAction(galery)
+        alertViewController.addAction(internet)
+        alertViewController.addAction(delete)
+        alertViewController.addAction(cancel)
+        
+        present(alertViewController, animated: true)
     }
     
+}
+#Preview() {
+    AddWordViewController()
 }
