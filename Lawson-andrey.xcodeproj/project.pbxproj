@@ -17,6 +17,7 @@
 		185C0C852BBC0845004F77D2 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185C0C842BBC0845004F77D2 /* StartViewController.swift */; };
 		186294992B92108700E7A3F3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186294982B92108700E7A3F3 /* MainViewController.swift */; };
 		186439FC2BC0156500060137 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186439FB2BC0156500060137 /* AddWordViewController.swift */; };
+		1885981C2CA07AF5002BC250 /* InternetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1885981B2CA07AF5002BC250 /* InternetViewController.swift */; };
 		18FCF3712C2218E800A25773 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCF3702C2218E800A25773 /* MainTableViewCell.swift */; };
 		18FCF3742C29EFEC00A25773 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18FCF3732C29EFEC00A25773 /* RealmSwift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 		185C0C842BBC0845004F77D2 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		186294982B92108700E7A3F3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		186439FB2BC0156500060137 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
+		1885981B2CA07AF5002BC250 /* InternetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetViewController.swift; sourceTree = "<group>"; };
 		18FCF3702C2218E800A25773 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +106,7 @@
 				185C0C842BBC0845004F77D2 /* StartViewController.swift */,
 				186294982B92108700E7A3F3 /* MainViewController.swift */,
 				186439FB2BC0156500060137 /* AddWordViewController.swift */,
+				1885981B2CA07AF5002BC250 /* InternetViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				186294992B92108700E7A3F3 /* MainViewController.swift in Sources */,
 				185C0C852BBC0845004F77D2 /* StartViewController.swift in Sources */,
 				182D41522C37CAB400FC9ACA /* WordModel.swift in Sources */,
+				1885981C2CA07AF5002BC250 /* InternetViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
