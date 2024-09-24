@@ -1,7 +1,5 @@
 import UIKit
 
-// class struct enum
-
 protocol DocumetProtocol: AnyObject {
     
     func saveText(model:WordModel)
@@ -14,6 +12,7 @@ class AddWordViewController:BaseViewController {
     private  let wordTextField = UITextField()
     private  let translateTextField = UITextField()
     private let upperWhiteView = UIView()
+    private let selectImageView = UIImageView()
     
     
     // property var
@@ -154,6 +153,8 @@ languageStackView.translatesAutoresizingMaskIntoConstraints = false
         
         
         upperWhiteView.addSubview(upStackView)
+        upperWhiteView.addSubview(selectImageView)
+        upperWhiteView.clipsToBounds = true
   
         whiteView.addSubview(stackView)
       
@@ -188,6 +189,7 @@ languageStackView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(mainStackView)
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        selectImageView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.addArrangedSubview(upperWhiteView)
         mainStackView.addArrangedSubview(whiteView)
         
@@ -202,7 +204,11 @@ languageStackView.translatesAutoresizingMaskIntoConstraints = false
             stackView.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor,constant: 22),
             stackView.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor,constant: -22),
             
-            
+            selectImageView.topAnchor.constraint(equalTo: upperWhiteView.topAnchor),
+            selectImageView.bottomAnchor.constraint(equalTo: upperWhiteView.bottomAnchor),
+            selectImageView.leadingAnchor.constraint(equalTo: upperWhiteView.leadingAnchor),
+            selectImageView.trailingAnchor.constraint(equalTo: upperWhiteView.trailingAnchor),
+
             
             mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
             mainStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
@@ -223,6 +229,8 @@ languageStackView.translatesAutoresizingMaskIntoConstraints = false
             languageStackView.heightAnchor.constraint(equalToConstant: 44)
           
      ])
+        
+        selectImageView.backgroundColor = .clear
         
     }
     
@@ -291,11 +299,11 @@ languageStackView.translatesAutoresizingMaskIntoConstraints = false
         let alertViewController = UIAlertController(title: "Выбирите действие", message: nil, preferredStyle: .actionSheet)
         
         let camera = UIAlertAction(title: "Камера", style: .default) { _ in
-            print("нажалась кнопка Камера")
+            self.showPhotoGalaryOrCamera(.camera)
         }
         
         let galery = UIAlertAction(title: "Фотоальбом", style: .default) { _ in
-            print("нажалась кнопка Фотоальбом")
+            self.showPhotoGalaryOrCamera(.photoLibrary)
         }
         
         let internet = UIAlertAction(title: "Интернет", style: .default) { _ in
@@ -303,7 +311,7 @@ languageStackView.translatesAutoresizingMaskIntoConstraints = false
         }
         
         let delete = UIAlertAction(title: "Удалить", style: .destructive) { _ in
-           print("нажалась кнопка Удалить")
+            self.selectImageView.image = nil
         }
         
         let cancel = UIAlertAction(title: "Отмена", style: .cancel) { _ in
@@ -319,7 +327,33 @@ languageStackView.translatesAutoresizingMaskIntoConstraints = false
         present(alertViewController, animated: true)
     }
     
+    
+    private func showPhotoGalaryOrCamera(_ type: UIImagePickerController.SourceType) {
+        let pickerViewController = UIImagePickerController()
+        pickerViewController.delegate = self
+        pickerViewController.sourceType = type
+        pickerViewController.allowsEditing = true
+        
+        present(pickerViewController, animated: true)
+    }
+    
 }
+
+extension AddWordViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let image = info[.editedImage] as? UIImage else { return }
+        
+        selectImageView.image = image
+        
+        picker.dismiss(animated: true)
+    }
+}
+
+
+
+
 #Preview() {
     AddWordViewController()
 }
