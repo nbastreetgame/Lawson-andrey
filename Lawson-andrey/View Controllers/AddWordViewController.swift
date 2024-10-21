@@ -15,6 +15,7 @@ class AddWordViewController:BaseViewController {
     private  let translateTextField = UITextField()
     private let upperWhiteView = UIView()
     private let selectImageView = UIImageView()
+    private let  playLabel = UILabel()
     
     
     // property var
@@ -85,13 +86,9 @@ class AddWordViewController:BaseViewController {
       return newView
     }
     
-    
-    
-    
+
     //private func
     private func setupConstrains(){
-        
-        
         
        //upperWhiteView
         let chooseImageLabel = UILabel()
@@ -111,21 +108,26 @@ class AddWordViewController:BaseViewController {
         //word
     let wordView = setupTextFieldView(title: "Слово", detail: "На вашем языке", wordTextField)
     let translateView = setupTextFieldView(title: "Перевод", detail: "На языке звучания", translateTextField)
+        
+        playLabel.text = "Воспроизвести"
+        playLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        playLabel.translatesAutoresizingMaskIntoConstraints = false
        
         let playerStackView = UIStackView()
         playerStackView.axis = .vertical
         playerStackView.distribution = .fill
         playerStackView.alignment = .fill
         playerStackView.spacing = 27
-        playerStackView.backgroundColor = .green
+        
 playerStackView.translatesAutoresizingMaskIntoConstraints = false
+        playerStackView.addArrangedSubview(playLabel)
         
         let languageStackView = UIStackView()
         languageStackView.axis = .vertical
         languageStackView.distribution = .fill
         languageStackView.alignment = .fill
         languageStackView.spacing = 27
-        languageStackView.backgroundColor = .orange
+        
 languageStackView.translatesAutoresizingMaskIntoConstraints = false
  
         
@@ -230,7 +232,10 @@ languageStackView.translatesAutoresizingMaskIntoConstraints = false
             playerStackView.heightAnchor.constraint(equalToConstant: 50),
             
             languageStackView.widthAnchor.constraint(equalToConstant: 302),
-            languageStackView.heightAnchor.constraint(equalToConstant: 44)
+            languageStackView.heightAnchor.constraint(equalToConstant: 44),
+            
+    playLabel.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor, constant: 21),
+    playLabel.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: 99)
           
      ])
        

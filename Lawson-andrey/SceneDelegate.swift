@@ -17,7 +17,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         let vc = MainViewController.init()
-        window?.rootViewController = UINavigationController(rootViewController: vc)
+        
+        let apperance = UINavigationBarAppearance()
+        apperance.configureWithDefaultBackground()
+        apperance.titleTextAttributes = [
+            .font: UIFont.systemFont(ofSize: 17, weight: .medium)
+        ]
+        
+        let navigation = UINavigationController(rootViewController: vc)
+        
+        navigation.navigationBar.standardAppearance = apperance
+        navigation.navigationBar.scrollEdgeAppearance = apperance
+        navigation.navigationBar.compactAppearance = apperance
+        navigation.navigationBar.tintColor = .systemOrange
+       
+        
+        
+        
+        window?.rootViewController = navigation
         window?.makeKeyAndVisible()
     }
 
