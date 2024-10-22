@@ -18,6 +18,9 @@
 		186294992B92108700E7A3F3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186294982B92108700E7A3F3 /* MainViewController.swift */; };
 		186439FC2BC0156500060137 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186439FB2BC0156500060137 /* AddWordViewController.swift */; };
 		1885981C2CA07AF5002BC250 /* InternetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1885981B2CA07AF5002BC250 /* InternetViewController.swift */; };
+		18EE8F932CC7DA50008B7254 /* InternetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8F922CC7DA50008B7254 /* InternetPresenter.swift */; };
+		18EE8F952CC7DD35008B7254 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8F942CC7DD35008B7254 /* PhotoModel.swift */; };
+		18EE8F972CC7EF55008B7254 /* CustomViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8F962CC7EF55008B7254 /* CustomViewCell.swift */; };
 		18FCF3712C2218E800A25773 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCF3702C2218E800A25773 /* MainTableViewCell.swift */; };
 		18FCF3742C29EFEC00A25773 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18FCF3732C29EFEC00A25773 /* RealmSwift */; };
 /* End PBXBuildFile section */
@@ -36,6 +39,9 @@
 		186294982B92108700E7A3F3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		186439FB2BC0156500060137 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
 		1885981B2CA07AF5002BC250 /* InternetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetViewController.swift; sourceTree = "<group>"; };
+		18EE8F922CC7DA50008B7254 /* InternetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetPresenter.swift; sourceTree = "<group>"; };
+		18EE8F942CC7DD35008B7254 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
+		18EE8F962CC7EF55008B7254 /* CustomViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewCell.swift; sourceTree = "<group>"; };
 		18FCF3702C2218E800A25773 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,13 +108,48 @@
 		185C0C812BBC0767004F77D2 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1845ECD72B835ECE00E64A00 /* ViewController.swift */,
+				18EE8F8E2CC7D8D5008B7254 /* GalaryController */,
 				185C0C842BBC0845004F77D2 /* StartViewController.swift */,
 				186294982B92108700E7A3F3 /* MainViewController.swift */,
 				186439FB2BC0156500060137 /* AddWordViewController.swift */,
-				1885981B2CA07AF5002BC250 /* InternetViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		18EE8F8E2CC7D8D5008B7254 /* GalaryController */ = {
+			isa = PBXGroup;
+			children = (
+				18EE8F912CC7D97E008B7254 /* Model */,
+				18EE8F902CC7D95C008B7254 /* Presenter */,
+				18EE8F8F2CC7D94E008B7254 /* View */,
+				1845ECD72B835ECE00E64A00 /* ViewController.swift */,
+			);
+			path = GalaryController;
+			sourceTree = "<group>";
+		};
+		18EE8F8F2CC7D94E008B7254 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1885981B2CA07AF5002BC250 /* InternetViewController.swift */,
+				18EE8F962CC7EF55008B7254 /* CustomViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18EE8F902CC7D95C008B7254 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				18EE8F922CC7DA50008B7254 /* InternetPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		18EE8F912CC7D97E008B7254 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18EE8F942CC7DD35008B7254 /* PhotoModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		18FCF36F2C2218B200A25773 /* Cells */ = {
@@ -197,13 +238,16 @@
 			files = (
 				1845ECD82B835ECE00E64A00 /* ViewController.swift in Sources */,
 				1845ECD42B835ECE00E64A00 /* AppDelegate.swift in Sources */,
+				18EE8F972CC7EF55008B7254 /* CustomViewCell.swift in Sources */,
 				186439FC2BC0156500060137 /* AddWordViewController.swift in Sources */,
 				18FCF3712C2218E800A25773 /* MainTableViewCell.swift in Sources */,
 				182D41552C37CEC400FC9ACA /* DataBase.swift in Sources */,
 				1845ECD62B835ECE00E64A00 /* SceneDelegate.swift in Sources */,
+				18EE8F952CC7DD35008B7254 /* PhotoModel.swift in Sources */,
 				186294992B92108700E7A3F3 /* MainViewController.swift in Sources */,
 				185C0C852BBC0845004F77D2 /* StartViewController.swift in Sources */,
 				182D41522C37CAB400FC9ACA /* WordModel.swift in Sources */,
+				18EE8F932CC7DA50008B7254 /* InternetPresenter.swift in Sources */,
 				1885981C2CA07AF5002BC250 /* InternetViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

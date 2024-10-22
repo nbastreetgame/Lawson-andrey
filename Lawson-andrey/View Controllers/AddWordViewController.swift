@@ -319,6 +319,7 @@ languageStackView.translatesAutoresizingMaskIntoConstraints = false
             print("нажалась кнопка Интернет")
             
             let internetVC = InternetViewController()
+            internetVC.delegate = self
             self.navigationController?.pushViewController(internetVC, animated: true)
         }
         
@@ -369,6 +370,14 @@ extension AddWordViewController: UIImagePickerControllerDelegate & UINavigationC
         
         picker.dismiss(animated: true)
     }
+}
+
+extension AddWordViewController: InternetViewControllerDelegate {
+    func selectImage(_ image: UIImage) {
+        selectImageView.image = image
+    }
+    
+    
 }
 
 #Preview() {
