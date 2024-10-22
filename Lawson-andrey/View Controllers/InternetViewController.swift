@@ -2,12 +2,14 @@ import UIKit
 
 class InternetViewController: UIViewController {
     
+    private let spacing: CGFloat = 10.0
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
-        layout.sectionInset = .init(top: 10, left: 0, bottom: 10, right: 0)
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing
+        layout.sectionInset = .init(top: 10, left: 10, bottom: 10, right: 10)
         
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         collectionView.delegate = self
@@ -20,6 +22,7 @@ collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifie
     
     
     private let array: [String] = ["space","","","","","","","",]
+    private var isSelectedCell: IndexPath! = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,11 +75,49 @@ extension InternetViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICollectionViewCell", for: indexPath) as? CustomCollectionViewCell else { return .init()}
         
+        let isOn = indexPath == isSelectedCell
+        
+        let value = array[indexPath.row]
+        cell.configure(with: UIImage(named: value), isSelect: isOn)
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 110, height: 129)
+        
+        let width = collectionView.frame.width
+        let countCell = 3.0
+        
+      //сумма отступов + ширина всех ячеек = ширина всего контроллера
+        let sumCell = width - (countCell + 1) * spacing - 1
+        let widhtCell = sumCell / countCell
+        
+        let height = 129.0 * widhtCell / 111.0
+        
+        return CGSize(width: widhtCell, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCollectionViewCell else { return }
+        
+        if isSelectedCell == indexPath { return }
+          
+        if isSelectedCell == nil {
+            isSelectedCell = indexPath
+            cell.configure( isSelect: true)
+          
+            return
+        }
+        
+        cell.configure( isSelect: true)
+        
+    guard let cellOld = collectionView.cellForItem(at: isSelectedCell) as? CustomCollectionViewCell else {
+        isSelectedCell = indexPath
+        return }
+        
+        isSelectedCell = indexPath
+        cellOld.configure( isSelect: false)
+        
     }
     
 }
@@ -116,27 +157,53 @@ class CustomCollectionViewCell: UICollectionViewCell {
            return imageView
        }()
     
+    private let checkmarkImageView: UIImageView = {
+           let imageView = UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
+           imageView.tintColor = .systemOrange
+           imageView.isHidden = true
+           return imageView
+       }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         contentView.addSubview(imageView)
+        contentView.addSubview(checkmarkImageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
         imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-        imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        
+        checkmarkImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
+        checkmarkImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+        checkmarkImageView.widthAnchor.constraint(equalToConstant: 24),
+        checkmarkImageView.heightAnchor.constraint(equalToConstant: 24)
                ])
         
-        backgroundColor = .red
+        backgroundColor = .systemPink.withAlphaComponent(0.4)
         layer.cornerRadius = 4
-        layer.maskedCorners = [.layerMinXMinYCorner]
         alpha = 0
+        layer.borderColor =  UIColor.systemOrange.cgColor
+       
     }
     
-    func configure(with image: UIImage?) {
+    func configure(with image: UIImage?, isSelect: Bool) {
             imageView.image = image
+        checkmarkImageView.isHidden = !isSelect
+        
+       
+        layer.borderWidth = isSelect ? 2 : 0
+      
+        }
+    
+    func configure( isSelect: Bool) {
+        checkmarkImageView.isHidden = !isSelect
+          
+        layer.borderWidth = isSelect ? 2 : 0
       
         }
     
