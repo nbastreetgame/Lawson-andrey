@@ -1,4 +1,5 @@
 import UIKit
+import SDWebImage
 
 protocol InternetViewControllerDelegate: AnyObject {
     func selectImage(_ image: UIImage)
@@ -27,8 +28,6 @@ collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifie
     }()
     
     
-   
-   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,8 +90,12 @@ extension InternetViewController: UICollectionViewDelegate, UICollectionViewData
         
         let isOn = indexPath == presenter.isSelectedCell
         
-        let value = presenter.arrayPhotos[indexPath.row].name
-        cell.configure(with: UIImage(named: value), isSelect: isOn)
+       if let value = presenter.arrayPhotos[indexPath.row].urls?.regular,
+          let url = URL(string: value) {
+           cell.imageView.sd_setImage(with: url)
+       }
+        
+        cell.configure( isSelect: isOn)
         
         return cell
     }
@@ -144,12 +147,12 @@ extension InternetViewController: UISearchBarDelegate {
 
 
 extension InternetViewController : InternetPresenterProtocol {
-    
-    func saveImageSelectName(_ name: String) {
-        guard let image = UIImage(named: name) else { return }
+    func saveImageSelectName(_ data: Data) {
+        guard let image = UIImage(data: data) else { return }
         delegate?.selectImage(image)
         navigationController?.popViewController( animated: true)
     }
+    
     
     func reloadData() {
         collectionView.reloadData()

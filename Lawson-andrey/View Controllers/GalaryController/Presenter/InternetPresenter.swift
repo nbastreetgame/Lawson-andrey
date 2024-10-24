@@ -2,7 +2,7 @@ import Foundation
 
 protocol InternetPresenterProtocol: AnyObject {
     func reloadData()
-    func saveImageSelectName(_ name: String)
+    func saveImageSelectName(_ data: Data)
 }
 
 
@@ -13,11 +13,26 @@ class InternetPresenter { //собстенные методы и свойств�
   var isSelectedCell: IndexPath!
     
     private func loading() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.arrayPhotos = PhotoModel.images
-            self.view?.reloadData()
+      
+        Network.shared.getPhotos { [weak self]  result in
+            
+            switch result {
+            case.success(let array):
+                self?.arrayPhotos = array
+                
+                DispatchQueue.main.async {
+                    self?.view?.reloadData()
+                }
+                
+               
+                
+                
+            case.failure (let error):
+                print(error.localizedDescription)
+                return
+            }
+            
         }
-        
     }
 }
 
@@ -30,9 +45,25 @@ extension InternetPresenter {
     }
     
     func saveImage() {
-        guard let isSelectedCell  else { return  }
-        let name = arrayPhotos[isSelectedCell.row].name
-        view?.saveImageSelectName(name)
+        guard let isSelectedCell,
+              let name = arrayPhotos[isSelectedCell.row].urls?.regular,
+              let url = URL(string: name)
+        else { return }
+        
+        Network.shared.downloadImage(url: url) { [weak self] result in
+            
+            switch result {
+            case.success(let data):
+                DispatchQueue.main.async {
+                    self?.view?.saveImageSelectName(data)
+                }
+                
+            case.failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
+        
+        
         
     }
     

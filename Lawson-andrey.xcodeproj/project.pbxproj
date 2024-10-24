@@ -21,6 +21,8 @@
 		18EE8F932CC7DA50008B7254 /* InternetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8F922CC7DA50008B7254 /* InternetPresenter.swift */; };
 		18EE8F952CC7DD35008B7254 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8F942CC7DD35008B7254 /* PhotoModel.swift */; };
 		18EE8F972CC7EF55008B7254 /* CustomViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8F962CC7EF55008B7254 /* CustomViewCell.swift */; };
+		18EE8F9A2CC93FF5008B7254 /* Networks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8F992CC93FF4008B7254 /* Networks.swift */; };
+		18EE8F9D2CC977C6008B7254 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 18EE8F9C2CC977C6008B7254 /* SDWebImage */; };
 		18FCF3712C2218E800A25773 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCF3702C2218E800A25773 /* MainTableViewCell.swift */; };
 		18FCF3742C29EFEC00A25773 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18FCF3732C29EFEC00A25773 /* RealmSwift */; };
 /* End PBXBuildFile section */
@@ -42,6 +44,7 @@
 		18EE8F922CC7DA50008B7254 /* InternetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetPresenter.swift; sourceTree = "<group>"; };
 		18EE8F942CC7DD35008B7254 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		18EE8F962CC7EF55008B7254 /* CustomViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewCell.swift; sourceTree = "<group>"; };
+		18EE8F992CC93FF4008B7254 /* Networks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networks.swift; sourceTree = "<group>"; };
 		18FCF3702C2218E800A25773 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18EE8F9D2CC977C6008B7254 /* SDWebImage in Frameworks */,
 				18FCF3742C29EFEC00A25773 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -92,6 +96,7 @@
 		1845ECD22B835ECE00E64A00 /* Lawson-andrey */ = {
 			isa = PBXGroup;
 			children = (
+				18EE8F982CC93FD4008B7254 /* Networks */,
 				182D41532C37CE5700FC9ACA /* StorageManager */,
 				182D41502C37CA3500FC9ACA /* Models */,
 				18FCF36F2C2218B200A25773 /* Cells */,
@@ -152,6 +157,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		18EE8F982CC93FD4008B7254 /* Networks */ = {
+			isa = PBXGroup;
+			children = (
+				18EE8F992CC93FF4008B7254 /* Networks.swift */,
+			);
+			path = Networks;
+			sourceTree = "<group>";
+		};
 		18FCF36F2C2218B200A25773 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +191,7 @@
 			name = "Lawson-andrey";
 			packageProductDependencies = (
 				18FCF3732C29EFEC00A25773 /* RealmSwift */,
+				18EE8F9C2CC977C6008B7254 /* SDWebImage */,
 			);
 			productName = "Lawson-andrey";
 			productReference = 1845ECD02B835ECE00E64A00 /* Lawson-andrey.app */;
@@ -209,6 +223,7 @@
 			mainGroup = 1845ECC72B835ECE00E64A00;
 			packageReferences = (
 				18FCF3722C29EFEC00A25773 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				18EE8F9B2CC977C6008B7254 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 1845ECD12B835ECE00E64A00 /* Products */;
 			projectDirPath = "";
@@ -240,6 +255,7 @@
 				1845ECD42B835ECE00E64A00 /* AppDelegate.swift in Sources */,
 				18EE8F972CC7EF55008B7254 /* CustomViewCell.swift in Sources */,
 				186439FC2BC0156500060137 /* AddWordViewController.swift in Sources */,
+				18EE8F9A2CC93FF5008B7254 /* Networks.swift in Sources */,
 				18FCF3712C2218E800A25773 /* MainTableViewCell.swift in Sources */,
 				182D41552C37CEC400FC9ACA /* DataBase.swift in Sources */,
 				1845ECD62B835ECE00E64A00 /* SceneDelegate.swift in Sources */,
@@ -465,6 +481,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		18EE8F9B2CC977C6008B7254 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.19.7;
+			};
+		};
 		18FCF3722C29EFEC00A25773 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -476,6 +500,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		18EE8F9C2CC977C6008B7254 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18EE8F9B2CC977C6008B7254 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		18FCF3732C29EFEC00A25773 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 18FCF3722C29EFEC00A25773 /* XCRemoteSwiftPackageReference "realm-swift" */;
