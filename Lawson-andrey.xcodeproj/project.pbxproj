@@ -23,6 +23,9 @@
 		18EE8F972CC7EF55008B7254 /* CustomViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8F962CC7EF55008B7254 /* CustomViewCell.swift */; };
 		18EE8F9A2CC93FF5008B7254 /* Networks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8F992CC93FF4008B7254 /* Networks.swift */; };
 		18EE8F9D2CC977C6008B7254 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 18EE8F9C2CC977C6008B7254 /* SDWebImage */; };
+		18EE8FA02CCE3427008B7254 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8F9F2CCE3427008B7254 /* Api.swift */; };
+		18EE8FA22CCE3487008B7254 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8FA12CCE3487008B7254 /* HTTPMethod.swift */; };
+		18EE8FA42CCE3518008B7254 /* Unsplash-Photos-Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE8FA32CCE3518008B7254 /* Unsplash-Photos-Network.swift */; };
 		18FCF3712C2218E800A25773 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCF3702C2218E800A25773 /* MainTableViewCell.swift */; };
 		18FCF3742C29EFEC00A25773 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18FCF3732C29EFEC00A25773 /* RealmSwift */; };
 /* End PBXBuildFile section */
@@ -45,6 +48,9 @@
 		18EE8F942CC7DD35008B7254 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		18EE8F962CC7EF55008B7254 /* CustomViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewCell.swift; sourceTree = "<group>"; };
 		18EE8F992CC93FF4008B7254 /* Networks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networks.swift; sourceTree = "<group>"; };
+		18EE8F9F2CCE3427008B7254 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		18EE8FA12CCE3487008B7254 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		18EE8FA32CCE3518008B7254 /* Unsplash-Photos-Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Unsplash-Photos-Network.swift"; sourceTree = "<group>"; };
 		18FCF3702C2218E800A25773 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,9 +166,20 @@
 		18EE8F982CC93FD4008B7254 /* Networks */ = {
 			isa = PBXGroup;
 			children = (
-				18EE8F992CC93FF4008B7254 /* Networks.swift */,
+				18EE8F9E2CCE33FF008B7254 /*  Setup */,
+				18EE8FA32CCE3518008B7254 /* Unsplash-Photos-Network.swift */,
 			);
 			path = Networks;
+			sourceTree = "<group>";
+		};
+		18EE8F9E2CCE33FF008B7254 /*  Setup */ = {
+			isa = PBXGroup;
+			children = (
+				18EE8F9F2CCE3427008B7254 /* Api.swift */,
+				18EE8FA12CCE3487008B7254 /* HTTPMethod.swift */,
+				18EE8F992CC93FF4008B7254 /* Networks.swift */,
+			);
+			path = " Setup";
 			sourceTree = "<group>";
 		};
 		18FCF36F2C2218B200A25773 /* Cells */ = {
@@ -254,7 +271,9 @@
 				1845ECD82B835ECE00E64A00 /* ViewController.swift in Sources */,
 				1845ECD42B835ECE00E64A00 /* AppDelegate.swift in Sources */,
 				18EE8F972CC7EF55008B7254 /* CustomViewCell.swift in Sources */,
+				18EE8FA02CCE3427008B7254 /* Api.swift in Sources */,
 				186439FC2BC0156500060137 /* AddWordViewController.swift in Sources */,
+				18EE8FA42CCE3518008B7254 /* Unsplash-Photos-Network.swift in Sources */,
 				18EE8F9A2CC93FF5008B7254 /* Networks.swift in Sources */,
 				18FCF3712C2218E800A25773 /* MainTableViewCell.swift in Sources */,
 				182D41552C37CEC400FC9ACA /* DataBase.swift in Sources */,
@@ -262,6 +281,7 @@
 				18EE8F952CC7DD35008B7254 /* PhotoModel.swift in Sources */,
 				186294992B92108700E7A3F3 /* MainViewController.swift in Sources */,
 				185C0C852BBC0845004F77D2 /* StartViewController.swift in Sources */,
+				18EE8FA22CCE3487008B7254 /* HTTPMethod.swift in Sources */,
 				182D41522C37CAB400FC9ACA /* WordModel.swift in Sources */,
 				18EE8F932CC7DA50008B7254 /* InternetPresenter.swift in Sources */,
 				1885981C2CA07AF5002BC250 /* InternetViewController.swift in Sources */,
