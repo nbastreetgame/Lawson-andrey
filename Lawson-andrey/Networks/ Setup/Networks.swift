@@ -1,7 +1,20 @@
 import Foundation
 
-
-
+enum NetworkError: Error {
+    
+ case invalidURL
+ case norData
+ case error(Error)
+    
+    var localizedDescription: String {
+        switch self {
+        case .invalidURL:      return "Invalid URL"
+        case.norData:          return "Not data"
+        case.error(let error): return error.localizedDescription
+            
+        }
+    }
+}
 
 final class Network {
     
@@ -11,19 +24,24 @@ final class Network {
         
     }
     
-    func pushRequest<T>(api: Api, httpBody: Data? = nil, type: T.Type, completion: @escaping (Result<T, Error>) -> ()) where T: Decodable {
+    func pushRequest<T>(api: Api, httpBody: Data? = nil, type: T.Type, completion: @escaping (Result<T, NetworkError>) -> ()) where T: Decodable {
         
         
         // 1 - URL
         guard let url = URL(string: api.path),
               var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        else { return }
+        else {
+            completion(.failure(.invalidURL))
+            return }
         
         // 2 - Params
         
         urlComponents.queryItems = api.queryItems
         
-        guard let path = urlComponents.url else { return }
+        guard let path = urlComponents.url else {
+            completion(.failure(.invalidURL))
+            return
+                       }
         
         var request = URLRequest(url: path,timeoutInterval: Double.infinity)
         
@@ -43,14 +61,13 @@ final class Network {
             
             // если ошибка есть то отдаем сразу его
             if let error = error {
-               completion(.failure(error))
+                completion(.failure(.error(error)))
                 return
             }
             
             // рвботаем с данными
             guard let data = data else {
-                let newError = NSError(domain: api.path, code: 0, userInfo: [NSLocalizedDescriptionKey: "Not data from server"])
-                completion(.failure(newError))
+                completion(.failure(.norData))
                 return
             }
             
@@ -58,16 +75,16 @@ final class Network {
         let decoder = JSONDecoder()
             
         do {
-            let object = try decoder.decode(T.self, from: data)
+          let  object = try decoder.decode(T.self, from: data)
+            
+            completion(.success(object))
         }
         catch let faulura {
             print(faulura)
-            completion(.failure(faulura))
+            completion(.failure(.norData))
             }
             
-            
-            
-        }
+    }
         
         task.resume()
     }
